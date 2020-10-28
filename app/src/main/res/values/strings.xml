@@ -6,4 +6,8 @@
     <string name="signed_cancelled">Signed in cancelled</string>
     <string name="logout_button">Logout</string>
     <string name="firebase_user_fmt">Firebase User: %s</string>
+
+    <string name="strError">No se ha recuperado ningún país</string>
+    <string name="btnDescripcion">Buscar</string>
+    <string name="btnTodos">Todos</string>
 </resources>
