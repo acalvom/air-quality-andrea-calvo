@@ -10,4 +10,6 @@
     <string name="strError">No se ha recuperado ningún país</string>
     <string name="btnFindCity">Buscar ciudad</string>
     <string name="btnFindAllCities">Todas las ciudades</string>
+
+    <string name="send_button_label">Send to cloud</string>
 </resources>

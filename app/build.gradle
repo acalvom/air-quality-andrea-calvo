@@ -31,6 +31,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.4'
     //implementation 'com.google.firebase:firebase-core:16.0.3'
 
+    // Added to enable Realtime Database feature from Firebase
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+
+    // Added to enable Realtime Authentication features from Firebase
+    implementation 'com.google.firebase:firebase-auth:16.0.1'
+    implementation 'com.firebaseui:firebase-ui-auth:4.2.0'
+
+    // Added to enable Firebase Storage
+    implementation "com.google.firebase:firebase-storage:16.0.1"
+
     implementation 'com.google.firebase:firebase-auth:16.0.5'
 
     // https://github.com/firebase/FirebaseUI-Android/tree/master/auth

@@ -6,14 +6,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 // Firebase
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Arrays;
 
@@ -33,10 +40,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
+    // Firebase database variables
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMessagesDatabaseReference;
+    private ChildEventListener mChildEventListener;
+
+    // Firebase storage variables
+    private FirebaseStorage mFirebaseStorage;
+    private StorageReference mChatPhotosStorageReference;
+
     private static final int RC_SIGN_IN = 2018;
 
     private TextView tvResponse;
     private EditText etCityName;
+    private Button mSendButton;
 
     private ICityRESTAPIService apiService;
 
@@ -48,6 +65,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         tvResponse = (TextView) findViewById(R.id.tvResponse);
         etCityName = (EditText) findViewById(R.id.etCityName);
+        mSendButton = (Button) findViewById(R.id.sendButton);
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -56,7 +75,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         apiService = retrofit.create(ICityRESTAPIService.class);
 
+
+        // Get instance of Firebase database
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseStorage = FirebaseStorage.getInstance();
+
+        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("measurement");
+
         mFirebaseAuth = FirebaseAuth.getInstance();
+
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -84,6 +111,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
             }
         };
+
+
+
     }
 
 
@@ -131,7 +161,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         call_async.enqueue(new Callback<Cities>() {
             @Override
             public void onResponse(Call<Cities> call, Response<Cities> response) {
-                Cities cityList = response.body();
+                final Cities cityList = response.body();
                 if (null != cityList) {
                     for (int i = 0; i < cityList.getResults().size(); i++) {
                         tvResponse.append(i +
@@ -145,6 +175,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     tvResponse.setText(getString(R.string.strError));
                     Log.i(LOG_TAG, getString(R.string.strError));
                 }
+
+                //  Send button sends a message and clears the EditText. Send message to Backend
+                mSendButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //cityList.getResults().get(0).getCoordinates();
+                        mMessagesDatabaseReference.push().setValue(cityList.getResults().get(0).getLocation());
+                        Log.i(LOG_TAG, "getAllCities => onClick=" + cityList.getResults().get(0).getLocation());
+                    }
+                });
             }
 
             @Override
@@ -157,6 +197,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Log.e(LOG_TAG, t.getMessage());
             }
         });
+
+
     }
 
     public void getByCity(View v) {
