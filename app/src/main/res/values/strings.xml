@@ -5,9 +5,9 @@
     <string name="signed_out">Signed out!</string>
     <string name="signed_cancelled">Signed in cancelled</string>
     <string name="logout_button">Logout</string>
-    <string name="firebase_user_fmt">Firebase User: %s</string>
+    <string name="firebase_user_fmt"> %s</string>
 
     <string name="strError">No se ha recuperado ningún país</string>
-    <string name="btnDescripcion">Buscar</string>
-    <string name="btnTodos">Todos</string>
+    <string name="btnFindCity">Buscar ciudad</string>
+    <string name="btnFindAllCities">Todas las ciudades</string>
 </resources>

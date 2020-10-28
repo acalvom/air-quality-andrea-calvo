@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:paddingLeft="@dimen/activity_horizontal_margin"
-android:paddingRight="@dimen/activity_horizontal_margin"
-android:paddingTop="@dimen/activity_vertical_margin"
-android:paddingBottom="@dimen/activity_vertical_margin"
-android:orientation="vertical"
-tools:context=".MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/fila"
+        android:id="@+id/searchRow"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:text="Search Menu"
         android:orientation="horizontal">
+
         <EditText
-            android:id="@+id/countryName"
+            android:id="@+id/cityName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:inputType="text"
-            android:labelFor="@id/countryName"
+            android:hint="Add city to search"
+            android:labelFor="@id/cityName"
             android:maxLines="1" />
+
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_search"
-            android:contentDescription="@string/btnDescripcion"
+            android:contentDescription="@string/btnFindCity"
             android:onClick="obtenerTodasCiudades" />
+
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_sort_alphabetically"
-            android:contentDescription="@string/btnTodos"
+            android:contentDescription="@string/btnFindAllCities"
             android:onClick="obtenerTodasCiudades" />
     </LinearLayout>
 
@@ -48,40 +54,52 @@ tools:context=".MainActivity">
         android:layout_width="match_parent">
 
         <TextView
-            android:id="@+id/tvRespuesta"
+            android:id="@+id/tvResponse"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/userLogin"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/userLog"
         android:layout_width="match_parent"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvLoggedUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/logoutButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:gravity="center"
             android:text="@string/logout_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="10"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLoggedUser" />
 
     </LinearLayout>
 
 </LinearLayout>
+
+
+
+
+
+
+
+
+

@@ -46,8 +46,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         findViewById(R.id.logoutButton).setOnClickListener(this);
 
-        tvRespuesta = (TextView) findViewById(R.id.tvRespuesta);
-        etCityName = (EditText) findViewById(R.id.countryName); // TODO cambiar a cityName
+        tvRespuesta = (TextView) findViewById(R.id.tvResponse);
+        etCityName = (EditText) findViewById(R.id.cityName); // TODO cambiar a cityName
 
         // btb added for retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -67,7 +67,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     CharSequence username = user.getDisplayName();
                     Toast.makeText(MainActivity.this, getString(R.string.firebase_user_fmt, username), Toast.LENGTH_LONG).show();
                     Log.i(LOG_TAG, "onAuthStateChanged() " + getString(R.string.firebase_user_fmt, username));
-                    ((TextView) findViewById(R.id.textView)).setText(getString(R.string.firebase_user_fmt, username));
+                    ((TextView) findViewById(R.id.tvLoggedUser)).setText(getString(R.string.firebase_user_fmt, username));
                 } else {
                     // user is signed out
                     startActivityForResult(
