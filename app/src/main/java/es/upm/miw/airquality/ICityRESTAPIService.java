@@ -4,6 +4,7 @@ import es.upm.miw.airquality.models.Cities;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 @SuppressWarnings("Unused")
 interface ICityRESTAPIService {
@@ -14,9 +15,9 @@ interface ICityRESTAPIService {
 
     // https://api.openaq.org/v1/latest?country=ES&limit=2000&order_by=city
     @GET("/v1/latest?country=ES&limit=2000&order_by=city")
-    Call<Cities> getAllAirQuality();
+    Call<Cities> getAllCities();
 
     // https://api.openaq.org/v1/latest?city=Madrid
-    @GET("/v1/latest?city={cityName}")
-    Call<Cities> getAirQualityByLocation(@Path("cityName") String cityName);
+    @GET("/v1/latest")
+    Call<Cities> getAirQualityByLocation(@Query("city") String cityName);
 }

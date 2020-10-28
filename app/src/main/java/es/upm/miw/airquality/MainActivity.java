@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private static final int RC_SIGN_IN = 2018;
 
-    private TextView tvRespuesta;
+    private TextView tvResponse;
     private EditText etCityName;
 
     private ICityRESTAPIService apiService;
@@ -44,12 +44,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.logoutButton).setOnClickListener(this);
+        findViewById(R.id.btnLogout).setOnClickListener(this);
 
-        tvRespuesta = (TextView) findViewById(R.id.tvResponse);
-        etCityName = (EditText) findViewById(R.id.cityName); // TODO cambiar a cityName
+        tvResponse = (TextView) findViewById(R.id.tvResponse);
+        etCityName = (EditText) findViewById(R.id.etCityName);
 
-        // btb added for retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -126,34 +125,64 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Log.i(LOG_TAG, getString(R.string.signed_out));
     }
 
-    public void obtenerTodasCiudades(View v) {
-        //String cityName = etCityName.getText().toString();
-        //Log.i(LOG_TAG, "obtenerInfoCiudad => ciudad=" + cityName);
-        //tvRespuesta.setText("");
+    public void getAllCities(View v) {
+        Call<Cities> call_async = apiService.getAllCities();
 
-        // Realiza la llamada por nombre
-        Call<Cities> call_async = apiService.getAllAirQuality();
-        Log.i(LOG_TAG, "is executed" + call_async.isExecuted());
-
-        // Asíncrona
         call_async.enqueue(new Callback<Cities>() {
             @Override
             public void onResponse(Call<Cities> call, Response<Cities> response) {
                 Cities cityList = response.body();
-                int contaPais = 0;
                 if (null != cityList) {
                     for (int i = 0; i < cityList.getResults().size(); i++) {
-                        contaPais++;
-                        //tvRespuesta.setText(cityList.getResults().get(i).getCity());
-                        tvRespuesta.append(i +
+                        tvResponse.append(i +
                                 " - [" + cityList.getResults().get(i).getLocation()+ "] " +
                                 " - [" + cityList.getResults().get(i).getCity()+ "] " +
                                 "\n");
                     }
 
-                    Log.i(LOG_TAG, "obtenerInfoCiudad => respuesta=" + cityList);
+                    Log.i(LOG_TAG, "getAllCities => respuesta=" + cityList.getResults());
                 } else {
-                    tvRespuesta.setText(getString(R.string.strError));
+                    tvResponse.setText(getString(R.string.strError));
+                    Log.i(LOG_TAG, getString(R.string.strError));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cities> call, Throwable t) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        "ERROR: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+                Log.e(LOG_TAG, t.getMessage());
+            }
+        });
+    }
+
+    public void getByCity(View v) {
+        String cityName = etCityName.getText().toString();
+        tvResponse.setText("");
+
+        // Realiza la llamada por nombre de ciudad
+        Call<Cities> call_async = apiService.getAirQualityByLocation(cityName);
+        Log.i(LOG_TAG, "getByCity => ciudad=" + cityName);
+
+        // Asíncrona
+        call_async.enqueue(new Callback<Cities>() {
+            @Override
+            public void onResponse(Call<Cities> call, Response<Cities> response) {
+                Cities city = response.body();
+                if (null != city) {
+                    for (int i = 0; i < city.getResults().size(); i++) {
+                        tvResponse.append(i +
+                                " - [" + city.getResults().get(i).getLocation()+ "] " +
+                                " - [" + city.getResults().get(i).getCity()+ "] " +
+                                "\n");
+                    }
+
+                    Log.i(LOG_TAG, "obtenerInfoCiudad => respuesta=" + city);
+                } else {
+                    tvResponse.setText(getString(R.string.strError));
                     Log.i(LOG_TAG, getString(R.string.strError));
                 }
             }
