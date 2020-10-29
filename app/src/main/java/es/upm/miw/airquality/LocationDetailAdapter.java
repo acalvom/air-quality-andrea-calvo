@@ -1,35 +1,17 @@
 package es.upm.miw.airquality;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
-import es.upm.miw.airquality.models.Cities;
 import es.upm.miw.airquality.models.Result;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static es.upm.miw.airquality.MainActivity.API_BASE_URL;
-import static es.upm.miw.airquality.MainActivity.KEY_ID;
-import static es.upm.miw.airquality.MainActivity.KEY_LOCATION;
-import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 
 public class LocationDetailAdapter extends ArrayAdapter {
 
@@ -68,11 +50,25 @@ public class LocationDetailAdapter extends ArrayAdapter {
         Result result = _resultados.get(position);
         if (result != null) {
 
-            TextView tvDetailPosition = convertView.findViewById(R.id.tvDetailListPosition);
-            TextView tvDetail = convertView.findViewById(R.id.tvDetailListLocationCode);
+            TextView tvDetailPosition = convertView.findViewById(R.id.tvDetailPosition);
+            TextView tvDetailParameter = convertView.findViewById(R.id.tvDetailParameter);
+            TextView tvDetailValue = convertView.findViewById(R.id.tvDetailValue);
+            TextView tvDetailUnit = convertView.findViewById(R.id.tvDetailUnit);
+            TextView tvDetailLastUpdate = convertView.findViewById(R.id.tvDetailLastUpdate);
 
-            tvDetailPosition.setText(Integer.toString(position + 1));
-            tvDetail.setText(result.getMeasurements().get(position).getParameter());
+            int numberMeasurements = result.getMeasurements().size();
+            for (int i = 0; i < numberMeasurements; i++){
+                String parameter = result.getMeasurements().get(i).getParameter();
+                Double value = result.getMeasurements().get(i).getValue();
+                String unit = result.getMeasurements().get(i).getUnit();
+                String lastUpdate = result.getMeasurements().get(i).getLastUpdated();
+
+                tvDetailPosition.setText(Integer.toString(i));
+                tvDetailParameter.setText(parameter);
+                tvDetailValue.setText(Double.toString( value));
+                tvDetailUnit.setText(unit);
+                tvDetailLastUpdate.setText(lastUpdate);
+            }
 
         }
         return convertView;
