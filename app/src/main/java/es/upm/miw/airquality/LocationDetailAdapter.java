@@ -48,6 +48,7 @@ public class LocationDetailAdapter extends ArrayAdapter {
          * Asignar las vistas a los datos
          */
         Result result = _resultados.get(position);
+
         if (result != null) {
 
             TextView tvDetailPosition = convertView.findViewById(R.id.tvDetailPosition);
@@ -55,20 +56,39 @@ public class LocationDetailAdapter extends ArrayAdapter {
             TextView tvDetailValue = convertView.findViewById(R.id.tvDetailValue);
             TextView tvDetailUnit = convertView.findViewById(R.id.tvDetailUnit);
             TextView tvDetailLastUpdate = convertView.findViewById(R.id.tvDetailLastUpdate);
+/*
+            String parameter = result.getMeasurements().get(position).getParameter();
+            Double value = result.getMeasurements().get(position).getValue();
+            String unit = result.getMeasurements().get(position).getUnit();
+            String lastUpdate = result.getMeasurements().get(position).getLastUpdated();
 
+            tvDetailPosition.setText(Integer.toString(position));
+            tvDetailParameter.setText(parameter);
+            tvDetailValue.setText(Double.toString( value));
+            tvDetailUnit.setText(unit);
+            tvDetailLastUpdate.setText(lastUpdate);
+
+            */
             int numberMeasurements = result.getMeasurements().size();
             for (int i = 0; i < numberMeasurements; i++){
                 String parameter = result.getMeasurements().get(i).getParameter();
                 Double value = result.getMeasurements().get(i).getValue();
                 String unit = result.getMeasurements().get(i).getUnit();
                 String lastUpdate = result.getMeasurements().get(i).getLastUpdated();
+                tvDetailPosition.append(Integer.toString(i + 1)+ "\n\n");
+                tvDetailParameter.append(parameter+ "\n\n");
+                tvDetailValue.append((Double.toString( value))+ "\n\n");
+                tvDetailUnit.append(unit+ "\n\n");
+                tvDetailLastUpdate.append(lastUpdate + "\n\n" );
 
-                tvDetailPosition.setText(Integer.toString(i));
-                tvDetailParameter.setText(parameter);
-                tvDetailValue.setText(Double.toString( value));
-                tvDetailUnit.setText(unit);
-                tvDetailLastUpdate.setText(lastUpdate);
+                //tvDetailPosition.setText(Integer.toString(i));
+                //tvDetailParameter.setText(parameter);
+                //tvDetailValue.setText(Double.toString( value));
+                //tvDetailUnit.setText(unit);
+                //tvDetailLastUpdate.setText(lastUpdate);
             }
+
+
 
         }
         return convertView;
