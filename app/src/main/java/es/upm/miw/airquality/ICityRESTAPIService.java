@@ -21,7 +21,11 @@ interface ICityRESTAPIService {
     //@GET("/v1/latest?country=ES&limit=2000&order_by=city")
     //Call<Cities> getAllCities();
 
-    // https://api.openaq.org/v1/latest?city=Madrid
-    @GET("/v1/latest")
+    // https://api.openaq.org/v1/locations?city=Madrid
+    @GET("/v1/locations")
     Call<Cities> getAllLocationsFromCity(@Query("city") String cityName);
+
+    // https://api.openaq.org/v1/latest?city=Madrid
+    //@GET("/v1/latest")
+    //Call<Cities> getAllLocationsFromCity(@Query("city") String cityName);
 }
