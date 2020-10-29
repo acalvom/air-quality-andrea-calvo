@@ -1,26 +1,17 @@
 package es.upm.miw.airquality;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import es.upm.miw.airquality.models.Cities;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static es.upm.miw.airquality.MainActivity.API_BASE_URL;
-import static es.upm.miw.airquality.MainActivity.KEY_ID;
-import static es.upm.miw.airquality.MainActivity.KEY_LOCATION;
-import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 
 public class CityDetail extends AppCompatActivity {
 
-    AirQualityAdapter airQualityAdapter;
+    CityListAdapter airQualityAdapter;
     ListView lvLocationDetailsList;
 
     private ICityRESTAPIService apiService;

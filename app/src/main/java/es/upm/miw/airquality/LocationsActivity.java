@@ -26,7 +26,7 @@ import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 public class LocationsActivity extends AppCompatActivity {
 
     String cityReceived = "";
-    AirQualityAdapter airQualityAdapter;
+    LocationsAdapter locationsAdapter;
     ListView lvLocationsList;
 
     private ICityRESTAPIService apiService;
@@ -76,12 +76,12 @@ public class LocationsActivity extends AppCompatActivity {
                 final Cities locationsList = response.body();
                 if (null != locationsList) {
 
-                    airQualityAdapter = new AirQualityAdapter(
+                    locationsAdapter = new LocationsAdapter(
                             getApplicationContext(),
                             R.layout.result_item,
                             locationsList.getResults()
                     );
-                    lvLocationsList.setAdapter(airQualityAdapter);
+                    lvLocationsList.setAdapter(locationsAdapter);
                     lvLocationsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

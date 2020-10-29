@@ -60,7 +60,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button mSendButton;
 
     ListView lvCityList, lvLocationsList;
-    AirQualityAdapter airQualityAdapter;
+    CityListAdapter cityListAdapter;
 
     private ICityRESTAPIService apiService;
 
@@ -172,12 +172,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 final Cities cityList = response.body();
 
                 if (null != cityList) {
-                    airQualityAdapter = new AirQualityAdapter(
+                    cityListAdapter = new CityListAdapter(
                             getApplicationContext(),
                             R.layout.result_item,
                             cityList.getResults()
                     );
-                    lvCityList.setAdapter(airQualityAdapter);
+                    lvCityList.setAdapter(cityListAdapter);
                     lvCityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

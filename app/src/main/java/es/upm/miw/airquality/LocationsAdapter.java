@@ -13,13 +13,13 @@ import java.util.List;
 
 import es.upm.miw.airquality.models.Result;
 
-public class AirQualityAdapter extends ArrayAdapter {
+public class LocationsAdapter extends ArrayAdapter {
 
     private Context _contexto;
     private int _idLayout;
     private List<Result> _resultados;
 
-    public AirQualityAdapter(Context context, int idLayout, List<Result> results) {
+    public LocationsAdapter(Context context, int idLayout, List<Result> results) {
         super(context, idLayout, results);
         this._contexto = context;
         this._idLayout = idLayout;
@@ -54,10 +54,9 @@ public class AirQualityAdapter extends ArrayAdapter {
             TextView tvCity = convertView.findViewById(R.id.tvListCityName);
 
             tvPosition.setText(Integer.toString(position + 1));
-            tvCity.setText(result.getCity());
+            tvCity.setText(result.getLocation());
 
         }
         return convertView;
     }
-
 }
