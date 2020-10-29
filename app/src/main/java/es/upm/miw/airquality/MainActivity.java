@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -14,7 +15,6 @@ import android.widget.Toast;
 
 // Firebase
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -51,12 +51,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private StorageReference mChatPhotosStorageReference;
 
     private static final int RC_SIGN_IN = 2018;
+    final static String KEY_ID = "KEY_ID";
+    final static String KEY_CITY = "KEY_CITY";
 
     private TextView tvResponse;
     private EditText etCityName;
     private Button mSendButton;
 
-    ListView lvCityList;
+    ListView lvCityList, lvCityDetail;
     CityAdapter cityAdapter;
 
     private ICityRESTAPIService apiService;
@@ -67,11 +69,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         findViewById(R.id.btnLogout).setOnClickListener(this);
 
-        tvResponse  = (TextView) findViewById(R.id.tvResponse);
+        //tvResponse  = (TextView) findViewById(R.id.tvResponse);
         etCityName  = (EditText) findViewById(R.id.etCityName);
         mSendButton = (Button) findViewById(R.id.sendButton);
 
         lvCityList = (ListView) findViewById(R.id.lvCityList);
+        lvCityDetail = (ListView) findViewById(R.id.lvCityDetail);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -160,14 +163,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Log.i(LOG_TAG, getString(R.string.signed_out));
     }
 
-    public void getAllCities(View v) {
+    public void getAllCities(final View v) {
         Call<Cities> call_async = apiService.getAllCities();
 
         call_async.enqueue(new Callback<Cities>() {
             @Override
             public void onResponse(Call<Cities> call, Response<Cities> response) {
                 final Cities cityList = response.body();
-
 
                 if (null != cityList) {
                     cityAdapter = new CityAdapter(
@@ -176,6 +178,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             cityList.getResults()
                     );
                     lvCityList.setAdapter(cityAdapter);
+                    lvCityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            String texto = "Opción elegida (" +
+                                    position +
+                                    "): " +
+                                    parent.getItemAtPosition(position).toString();
+                            Log.i(LOG_TAG, texto);
+
+                            // Clave valor. Lo que le pasas a la siguiente aplicacion
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(KEY_ID, position);
+                            bundle.putString(KEY_CITY, parent.getItemAtPosition(position).toString());
+
+                            // Intent es lo que necesitamos para pasar de una actividad a otra
+                            Intent intent = new Intent(getApplicationContext(), CityDetail.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
                     /*
                     for (int i = 0; i < cityList.getResults().size(); i++) {
                         tvResponse.append(i +
@@ -202,6 +224,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 });
             }
 
+
             @Override
             public void onFailure(Call<Cities> call, Throwable t) {
                 Toast.makeText(
@@ -218,7 +241,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     public void getByCity(View v) {
         String cityName = etCityName.getText().toString();
-        tvResponse.setText("");
+        //tvResponse.setText("");
 
         // Realiza la llamada por nombre de ciudad
         Call<Cities> call_async = apiService.getAirQualityByLocation(cityName);
@@ -231,16 +254,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Cities city = response.body();
                 if (null != city) {
 
+                    cityAdapter = new CityAdapter(
+                            getApplicationContext(),
+                            R.layout.result_item,
+                            city.getResults()
+                    );
+                    lvCityDetail.setAdapter(cityAdapter);
+                    /*
                     for (int i = 0; i < city.getResults().size(); i++) {
                         tvResponse.append(i +
                                 " - [" + city.getResults().get(i).getLocation()+ "] " +
                                 " - [" + city.getResults().get(i).getCity()+ "] " +
                                 "\n");
                     }
+                     */
 
                     Log.i(LOG_TAG, "obtenerInfoCiudad => respuesta=" + city);
                 } else {
-                    tvResponse.setText(getString(R.string.strError));
+                    //tvResponse.setText(getString(R.string.strError));
                     Log.i(LOG_TAG, getString(R.string.strError));
                 }
             }

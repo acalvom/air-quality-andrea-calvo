@@ -55,18 +55,24 @@
         android:layout_height="0dp"
         android:layout_weight="7"/>
 
-
-    <ScrollView
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:layout_width="match_parent">
-
-        <TextView
-            android:id="@+id/tvResponse"
+        <ListView
+            android:id="@+id/lvCityDetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ScrollView>
+            android:layout_height="0dp"
+            android:layout_weight="7"/>
 
+    <!--
+            <ScrollView
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/tvResponse"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </ScrollView>
+        -->
     <LinearLayout
         android:id="@+id/userLogin"
         android:layout_height="0dp"
