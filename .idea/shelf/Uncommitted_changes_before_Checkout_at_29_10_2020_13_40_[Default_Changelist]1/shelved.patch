@@ -1,0 +1,128 @@
+Index: app/src/main/java/es/upm/miw/airquality/LocationsActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package es.upm.miw.airquality;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport android.support.v7.app.AppCompatActivity;\r\nimport android.util.Log;\r\nimport android.widget.ListView;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport es.upm.miw.airquality.models.Cities;\r\nimport retrofit2.Call;\r\nimport retrofit2.Callback;\r\nimport retrofit2.Response;\r\nimport retrofit2.Retrofit;\r\nimport retrofit2.converter.gson.GsonConverterFactory;\r\n\r\nimport static es.upm.miw.airquality.MainActivity.API_BASE_URL;\r\nimport static es.upm.miw.airquality.MainActivity.LOG_TAG;\r\n\r\npublic class LocationsActivity extends AppCompatActivity {\r\n\r\n    String cityReceived = \"\";\r\n    AirQualityAdapter airQualityAdapter;\r\n    ListView lvLocationsList;\r\n\r\n    private ICityRESTAPIService apiService;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_locations);\r\n\r\n        Retrofit retrofit = new Retrofit.Builder()\r\n                .baseUrl(API_BASE_URL)\r\n                .addConverterFactory(GsonConverterFactory.create())\r\n                .build();\r\n\r\n        apiService = retrofit.create(ICityRESTAPIService.class);\r\n\r\n        // Recupero el recurso asociado en la vista\r\n        TextView tvPosition = findViewById(R.id.tvPosition);\r\n        TextView tvCityName = findViewById(R.id.tvCityName);\r\n        lvLocationsList = findViewById(R.id.lvLocationsList);\r\n\r\n\r\n        // Recupero el bundle con los datos\r\n        Bundle bundle = this.getIntent().getExtras();\r\n        if (bundle != null) {\r\n            int positionReceived = bundle.getInt(MainActivity.KEY_ID);\r\n            String cityReceived = bundle.getString(MainActivity.KEY_CITY);\r\n\r\n            getAllLocationsByCity(cityReceived);\r\n\r\n            // Asignar datos en la vista\r\n            //tvPosition.setText(String.format(Locale.getDefault(), \"%2d\", positionReceived));\r\n            //tvCityName.setText(cityReceived);\r\n        }\r\n    }\r\n\r\n    public void getAllLocationsByCity(String cityReceived) {\r\n        //String cityName = etCityName.getText().toString();\r\n        //tvResponse.setText(\"\");\r\n\r\n        // Realiza la llamada por nombre de ciudad\r\n        Call<Cities> call_async = apiService.getAllLocationsFromCity(cityReceived);\r\n        Log.i(LOG_TAG, \"getByCity => ciudad=\" + cityReceived);\r\n\r\n        // Asíncrona\r\n        call_async.enqueue(new Callback<Cities>() {\r\n            @Override\r\n            public void onResponse(Call<Cities> call, Response<Cities> response) {\r\n                Cities city = response.body();\r\n                if (null != city) {\r\n\r\n                    airQualityAdapter = new AirQualityAdapter(\r\n                            getApplicationContext(),\r\n                            R.layout.result_item,\r\n                            city.getResults()\r\n                    );\r\n                    lvLocationsList.setAdapter(airQualityAdapter);\r\n                    /*\r\n                    for (int i = 0; i < city.getResults().size(); i++) {\r\n                        tvResponse.append(i +\r\n                                \" - [\" + city.getResults().get(i).getLocation()+ \"] \" +\r\n                                \" - [\" + city.getResults().get(i).getCity()+ \"] \" +\r\n                                \"\\n\");\r\n                    }\r\n                     */\r\n\r\n                    Log.i(LOG_TAG, \"obtenerInfoCiudad => respuesta=\" + city);\r\n                } else {\r\n                    //tvResponse.setText(getString(R.string.strError));\r\n                    Log.i(LOG_TAG, getString(R.string.strError));\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void onFailure(Call<Cities> call, Throwable t) {\r\n                Toast.makeText(\r\n                        getApplicationContext(),\r\n                        \"ERROR: \" + t.getMessage(),\r\n                        Toast.LENGTH_LONG\r\n                ).show();\r\n                Log.e(LOG_TAG, t.getMessage());\r\n            }\r\n        });\r\n\r\n    }\r\n}\r\n
+===================================================================
+--- app/src/main/java/es/upm/miw/airquality/LocationsActivity.java	(revision bc9449d68dfa3c74a61b633e6de2f8a7c38abded)
++++ app/src/main/java/es/upm/miw/airquality/LocationsActivity.java	(date 1603974088055)
+@@ -1,9 +1,12 @@
+ package es.upm.miw.airquality;
+ 
++import android.content.Intent;
+ import android.os.Bundle;
+ 
+ import android.support.v7.app.AppCompatActivity;
+ import android.util.Log;
++import android.view.View;
++import android.widget.AdapterView;
+ import android.widget.ListView;
+ import android.widget.TextView;
+ import android.widget.Toast;
+@@ -16,6 +19,8 @@
+ import retrofit2.converter.gson.GsonConverterFactory;
+ 
+ import static es.upm.miw.airquality.MainActivity.API_BASE_URL;
++import static es.upm.miw.airquality.MainActivity.KEY_ID;
++import static es.upm.miw.airquality.MainActivity.KEY_LOCATION;
+ import static es.upm.miw.airquality.MainActivity.LOG_TAG;
+ 
+ public class LocationsActivity extends AppCompatActivity {
+@@ -39,15 +44,14 @@
+         apiService = retrofit.create(ICityRESTAPIService.class);
+ 
+         // Recupero el recurso asociado en la vista
+-        TextView tvPosition = findViewById(R.id.tvPosition);
+-        TextView tvCityName = findViewById(R.id.tvCityName);
+-        lvLocationsList = findViewById(R.id.lvLocationsList);
++
++        lvLocationsList = findViewById(R.id.lvLocationsList2);
+ 
+ 
+         // Recupero el bundle con los datos
+         Bundle bundle = this.getIntent().getExtras();
+         if (bundle != null) {
+-            int positionReceived = bundle.getInt(MainActivity.KEY_ID);
++            int positionReceived = bundle.getInt(KEY_ID);
+             String cityReceived = bundle.getString(MainActivity.KEY_CITY);
+ 
+             getAllLocationsByCity(cityReceived);
+@@ -70,25 +74,40 @@
+         call_async.enqueue(new Callback<Cities>() {
+             @Override
+             public void onResponse(Call<Cities> call, Response<Cities> response) {
+-                Cities city = response.body();
+-                if (null != city) {
++                final Cities locationsList = response.body();
++                if (null != locationsList) {
+ 
+                     airQualityAdapter = new AirQualityAdapter(
+                             getApplicationContext(),
+                             R.layout.result_item,
+-                            city.getResults()
++                            locationsList.getResults()
+                     );
+                     lvLocationsList.setAdapter(airQualityAdapter);
+-                    /*
+-                    for (int i = 0; i < city.getResults().size(); i++) {
+-                        tvResponse.append(i +
+-                                " - [" + city.getResults().get(i).getLocation()+ "] " +
+-                                " - [" + city.getResults().get(i).getCity()+ "] " +
+-                                "\n");
+-                    }
+-                     */
++                    lvLocationsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
++                        @Override
++                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
++                            String texto = "Opción elegida (" +
++                                    position +
++                                    "): " +
++                                    //parent.getItemAtPosition(position).toString();
++                                    locationsList.getResults().get(position).getLocation();
++
++                            Log.i(LOG_TAG, texto);
++                            String locationCode = locationsList.getResults().get(position).getCity();
++
++                            // Clave valor. Lo que le pasas a la siguiente aplicacion
++                            Bundle bundle = new Bundle();
++                            bundle.putInt(KEY_ID, position);
++                            bundle.putString(KEY_LOCATION, locationCode);
++
++                            // Intent es lo que necesitamos para pasar de una actividad a otra
++                            Intent intent = new Intent(getApplicationContext(), CityDetail.class);
++                            intent.putExtras(bundle);
++                            startActivity(intent);
++                        }
++                    });
++                    Log.i(LOG_TAG, "obtenerInfoCiudad => respuesta=" + locationsList);
+ 
+-                    Log.i(LOG_TAG, "obtenerInfoCiudad => respuesta=" + city);
+                 } else {
+                     //tvResponse.setText(getString(R.string.strError));
+                     Log.i(LOG_TAG, getString(R.string.strError));
+Index: app/src/main/res/layout/activity_locations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    tools:context=\".LocationsActivity\">\r\n\r\n    <TextView\r\n        android:id=\"@+id/tvPosition\"\r\n        android:layout_width=\"fill_parent\"\r\n        android:layout_height=\"wrap_content\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/tvCityName\"\r\n        android:layout_width=\"fill_parent\"\r\n        android:layout_height=\"wrap_content\" />\r\n\r\n    <ListView\r\n        android:id=\"@+id/lvLocationsList\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"7\"/>\r\n\r\n</LinearLayout>\r\n
+===================================================================
+--- app/src/main/res/layout/activity_locations.xml	(revision bc9449d68dfa3c74a61b633e6de2f8a7c38abded)
++++ app/src/main/res/layout/activity_locations.xml	(date 1603974068683)
+@@ -6,18 +6,9 @@
+     android:orientation="vertical"
+     tools:context=".LocationsActivity">
+ 
+-    <TextView
+-        android:id="@+id/tvPosition"
+-        android:layout_width="fill_parent"
+-        android:layout_height="wrap_content" />
+-
+-    <TextView
+-        android:id="@+id/tvCityName"
+-        android:layout_width="fill_parent"
+-        android:layout_height="wrap_content" />
+ 
+     <ListView
+-        android:id="@+id/lvLocationsList"
++        android:id="@+id/lvLocationsList2"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="7"/>
