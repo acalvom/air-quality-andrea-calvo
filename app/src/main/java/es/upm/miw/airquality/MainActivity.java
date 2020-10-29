@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private EditText etCityName;
     private Button mSendButton;
 
+    ListView lvCityList;
+    CityAdapter cityAdapter;
+
     private ICityRESTAPIService apiService;
 
     @Override
@@ -63,10 +67,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         findViewById(R.id.btnLogout).setOnClickListener(this);
 
-        tvResponse = (TextView) findViewById(R.id.tvResponse);
-        etCityName = (EditText) findViewById(R.id.etCityName);
+        tvResponse  = (TextView) findViewById(R.id.tvResponse);
+        etCityName  = (EditText) findViewById(R.id.etCityName);
         mSendButton = (Button) findViewById(R.id.sendButton);
 
+        lvCityList = (ListView) findViewById(R.id.lvCityList);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -162,17 +167,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onResponse(Call<Cities> call, Response<Cities> response) {
                 final Cities cityList = response.body();
+
+
                 if (null != cityList) {
+                    cityAdapter = new CityAdapter(
+                            getApplicationContext(),
+                            R.layout.result_item,
+                            cityList.getResults()
+                    );
+                    lvCityList.setAdapter(cityAdapter);
+                    /*
                     for (int i = 0; i < cityList.getResults().size(); i++) {
                         tvResponse.append(i +
                                 " - [" + cityList.getResults().get(i).getLocation()+ "] " +
                                 " - [" + cityList.getResults().get(i).getCity()+ "] " +
                                 "\n");
                     }
+                     */
 
                     Log.i(LOG_TAG, "getAllCities => respuesta=" + cityList.getResults());
                 } else {
-                    tvResponse.setText(getString(R.string.strError));
+                    //tvResponse.setText(getString(R.string.strError));
                     Log.i(LOG_TAG, getString(R.string.strError));
                 }
 
@@ -215,6 +230,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onResponse(Call<Cities> call, Response<Cities> response) {
                 Cities city = response.body();
                 if (null != city) {
+
                     for (int i = 0; i < city.getResults().size(); i++) {
                         tvResponse.append(i +
                                 " - [" + city.getResults().get(i).getLocation()+ "] " +

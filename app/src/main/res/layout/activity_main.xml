@@ -49,9 +49,16 @@
             android:onClick="getAllCities" />
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/lvCityList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"/>
+
+
     <ScrollView
         android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_weight="5"
         android:layout_width="match_parent">
 
         <TextView
