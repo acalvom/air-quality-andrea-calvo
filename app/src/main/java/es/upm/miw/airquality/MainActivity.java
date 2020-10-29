@@ -24,10 +24,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Arrays;
-import java.util.List;
 
 import es.upm.miw.airquality.models.Cities;
-import es.upm.miw.airquality.models.Result;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -244,12 +242,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
-    public void getByCity(View v) {
+    public void getAllLocationsByCity(View v) {
         String cityName = etCityName.getText().toString();
         //tvResponse.setText("");
 
         // Realiza la llamada por nombre de ciudad
-        Call<Cities> call_async = apiService.getAirQualityByLocation(cityName);
+        Call<Cities> call_async = apiService.getAllLocationsFromCity(cityName);
         Log.i(LOG_TAG, "getByCity => ciudad=" + cityName);
 
         // Asíncrona

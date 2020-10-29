@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_search"
             android:contentDescription="@string/btnFindCity"
-            android:onClick="getByCity" />
+            android:onClick="getAllLocationsByCity" />
 
         <ImageButton
             android:layout_width="0dp"

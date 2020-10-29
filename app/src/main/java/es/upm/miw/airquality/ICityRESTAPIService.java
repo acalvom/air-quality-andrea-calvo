@@ -13,11 +13,15 @@ interface ICityRESTAPIService {
     // Request method and URL specified in the annotation
     // Callback for the parsed response is the last parameter
 
-    // https://api.openaq.org/v1/latest?country=ES&limit=2000&order_by=city
-    @GET("/v1/latest?country=ES&limit=2000&order_by=city")
+    //https://api.openaq.org/v1/cities?country=ES
+    @GET("/v1/cities?country=ES")
     Call<Cities> getAllCities();
+
+    // https://api.openaq.org/v1/latest?country=ES&limit=2000&order_by=city
+    //@GET("/v1/latest?country=ES&limit=2000&order_by=city")
+    //Call<Cities> getAllCities();
 
     // https://api.openaq.org/v1/latest?city=Madrid
     @GET("/v1/latest")
-    Call<Cities> getAirQualityByLocation(@Query("city") String cityName);
+    Call<Cities> getAllLocationsFromCity(@Query("city") String cityName);
 }

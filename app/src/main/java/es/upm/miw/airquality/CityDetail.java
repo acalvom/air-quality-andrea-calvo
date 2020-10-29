@@ -1,16 +1,12 @@
 package es.upm.miw.airquality;
 
 import android.os.Bundle;
-//import androidx.appcompat.app.AppCompatActivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Locale;
 
 import es.upm.miw.airquality.models.Cities;
 import retrofit2.Call;
@@ -54,7 +50,7 @@ public class CityDetail extends AppCompatActivity {
             int positionReceived = bundle.getInt(MainActivity.KEY_ID);
             String cityReceived = bundle.getString(MainActivity.KEY_CITY);
 
-            getByCity(cityReceived);
+            getAllLocationsByCity(cityReceived);
 
             // Asignar datos en la vista
             //tvPosition.setText(String.format(Locale.getDefault(), "%2d", positionReceived));
@@ -62,12 +58,12 @@ public class CityDetail extends AppCompatActivity {
         }
     }
 
-    public void getByCity(String cityReceived) {
+    public void getAllLocationsByCity(String cityReceived) {
         //String cityName = etCityName.getText().toString();
         //tvResponse.setText("");
 
         // Realiza la llamada por nombre de ciudad
-        Call<Cities> call_async = apiService.getAirQualityByLocation(cityReceived);
+        Call<Cities> call_async = apiService.getAllLocationsFromCity(cityReceived);
         Log.i(LOG_TAG, "getByCity => ciudad=" + cityReceived);
 
         // Asíncrona
