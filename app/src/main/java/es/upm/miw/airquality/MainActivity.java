@@ -53,6 +53,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static final int RC_SIGN_IN = 2018;
     final static String KEY_ID = "KEY_ID";
     final static String KEY_CITY = "KEY_CITY";
+    final static String KEY_LOCATION = "KEY_LOCATION";
 
     private TextView tvResponse;
     private EditText etCityName;
