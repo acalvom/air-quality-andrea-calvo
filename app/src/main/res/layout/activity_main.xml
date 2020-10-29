@@ -37,8 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_search"
-            android:contentDescription="@string/btnFindCity"
-            android:onClick="getAllLocationsByCity" />
+            android:contentDescription="@string/btnFindCity" />
 
         <ImageButton
             android:layout_width="0dp"
@@ -55,11 +54,6 @@
         android:layout_height="0dp"
         android:layout_weight="7"/>
 
-        <ListView
-            android:id="@+id/lvLocationsList"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7"/>
 
     <!--
             <ScrollView
@@ -86,14 +80,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:enabled="true"
-            android:text="@string/send_button_label"/>
+            android:text="@string/send_button_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLoggedUser"/>
 
         <TextView
             android:id="@+id/tvLoggedUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
+            android:layout_gravity="center_vertical"            android:gravity="center"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -105,7 +102,7 @@
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
+            android:layout_gravity="bottom"
             android:gravity="center"
             android:text="@string/logout_button"
             app:layout_constraintEnd_toEndOf="parent"

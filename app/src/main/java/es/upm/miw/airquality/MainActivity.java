@@ -74,7 +74,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mSendButton = (Button) findViewById(R.id.sendButton);
 
         lvCityList = (ListView) findViewById(R.id.lvCityList);
-        lvLocationsList = (ListView) findViewById(R.id.lvLocationsList);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -242,54 +241,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
-    public void getAllLocationsByCity(View v) {
-        String cityName = etCityName.getText().toString();
-        //tvResponse.setText("");
 
-        // Realiza la llamada por nombre de ciudad
-        Call<Cities> call_async = apiService.getAllLocationsFromCity(cityName);
-        Log.i(LOG_TAG, "getByCity => ciudad=" + cityName);
-
-        // Asíncrona
-        call_async.enqueue(new Callback<Cities>() {
-            @Override
-            public void onResponse(Call<Cities> call, Response<Cities> response) {
-                Cities city = response.body();
-                if (null != city) {
-
-                    airQualityAdapter = new AirQualityAdapter(
-                            getApplicationContext(),
-                            R.layout.result_item,
-                            city.getResults()
-                    );
-                    lvLocationsList.setAdapter(airQualityAdapter);
-                    /*
-                    for (int i = 0; i < city.getResults().size(); i++) {
-                        tvResponse.append(i +
-                                " - [" + city.getResults().get(i).getLocation()+ "] " +
-                                " - [" + city.getResults().get(i).getCity()+ "] " +
-                                "\n");
-                    }
-                     */
-
-                    Log.i(LOG_TAG, "obtenerInfoCiudad => respuesta=" + city);
-                } else {
-                    //tvResponse.setText(getString(R.string.strError));
-                    Log.i(LOG_TAG, getString(R.string.strError));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Cities> call, Throwable t) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        "ERROR: " + t.getMessage(),
-                        Toast.LENGTH_LONG
-                ).show();
-                Log.e(LOG_TAG, t.getMessage());
-            }
-        });
-
-    }
 
 }
