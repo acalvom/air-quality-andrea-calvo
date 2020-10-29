@@ -21,8 +21,8 @@ public class LocationsAdapter extends ArrayAdapter {
 
     public LocationsAdapter(Context context, int idLayout, List<Result> results) {
         super(context, idLayout, results);
-        this._contexto = context;
-        this._idLayout = idLayout;
+        this._contexto   = context;
+        this._idLayout   = idLayout;
         this._resultados = results;
         setNotifyOnChange(true);
     }
@@ -50,11 +50,20 @@ public class LocationsAdapter extends ArrayAdapter {
         Result result = _resultados.get(position);
         if (result != null) {
 
-            TextView tvLocationPosition = convertView.findViewById(R.id.tvLocationListPosition);
-            TextView tvLocationCode = convertView.findViewById(R.id.tvLocationListLocationCode);
+            TextView tvLocationPosition  = convertView.findViewById(R.id.tvLocationListPosition);
+            TextView tvLocationCode      = convertView.findViewById(R.id.tvLocationListLocationCode);
+            TextView tvLocationLatitude  = convertView.findViewById(R.id.tvLocationListLocationLatitude);
+            TextView tvLocationLongitude = convertView.findViewById(R.id.tvLocationListLocationLongitude);
+
+            String locationCode = result.getLocation();
+            Double latitude     = result.getCoordinates().getLatitude();
+            Double longitude    = result.getCoordinates().getLongitude();
 
             tvLocationPosition.setText(Integer.toString(position + 1));
-            tvLocationCode.setText(result.getLocation());
+            tvLocationCode.setText(locationCode);
+            tvLocationLatitude.setText(Double.toString(latitude));
+            tvLocationLongitude.setText(Double.toString(longitude));
+
 
         }
         return convertView;
