@@ -36,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    private static final String API_BASE_URL = "https://api.openaq.org";
+    static final String API_BASE_URL = "https://api.openaq.org";
 
     final static String LOG_TAG = "MiW";
 
