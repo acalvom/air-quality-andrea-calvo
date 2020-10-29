@@ -25,7 +25,7 @@ interface ICityRESTAPIService {
     @GET("/v1/locations")
     Call<Cities> getAllLocationsFromCity(@Query("city") String cityName);
 
-    // https://api.openaq.org/v1/latest?city=Madrid
-    //@GET("/v1/latest")
-    //Call<Cities> getAllLocationsFromCity(@Query("city") String cityName);
+    // https://api.openaq.org/v1/latest?location=ES1901A
+    @GET("/v1/latest")
+    Call<Cities> getAllMeasurementsFromCity(@Query("location") String locationCode);
 }

@@ -54,6 +54,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     final static String KEY_ID = "KEY_ID";
     final static String KEY_CITY = "KEY_CITY";
     final static String KEY_LOCATION = "KEY_LOCATION";
+    final static String KEY_DETAIL = "KEY_DETAIL";
 
     private TextView tvResponse;
     private EditText etCityName;
@@ -174,7 +175,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if (null != cityList) {
                     cityListAdapter = new CityListAdapter(
                             getApplicationContext(),
-                            R.layout.result_item,
+                            R.layout.activity_main_item,
                             cityList.getResults()
                     );
                     lvCityList.setAdapter(cityListAdapter);

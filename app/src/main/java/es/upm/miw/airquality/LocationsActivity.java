@@ -29,6 +29,9 @@ public class LocationsActivity extends AppCompatActivity {
     LocationsAdapter locationsAdapter;
     ListView lvLocationsList;
 
+    final static String KEY_ID = "KEY_ID";
+    final static String KEY_LOCATION = "KEY_LOCATION";
+
     private ICityRESTAPIService apiService;
 
     @Override
@@ -44,8 +47,6 @@ public class LocationsActivity extends AppCompatActivity {
         apiService = retrofit.create(ICityRESTAPIService.class);
 
         // Recupero el recurso asociado en la vista
-        TextView tvPosition = findViewById(R.id.tvPosition);
-        TextView tvCityName = findViewById(R.id.tvCityName);
         lvLocationsList = findViewById(R.id.lvLocationsList);
 
 
@@ -78,7 +79,7 @@ public class LocationsActivity extends AppCompatActivity {
 
                     locationsAdapter = new LocationsAdapter(
                             getApplicationContext(),
-                            R.layout.result_item,
+                            R.layout.activity_locations_item,
                             locationsList.getResults()
                     );
                     lvLocationsList.setAdapter(locationsAdapter);

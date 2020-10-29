@@ -1,17 +1,28 @@
 package es.upm.miw.airquality;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import es.upm.miw.airquality.models.Cities;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static es.upm.miw.airquality.MainActivity.API_BASE_URL;
 
+import static es.upm.miw.airquality.MainActivity.LOG_TAG;
+
 public class LocationDetail extends AppCompatActivity {
 
-    CityListAdapter airQualityAdapter;
+    LocationDetailAdapter locationDetailAdapter;
     ListView lvLocationDetailsList;
 
     private ICityRESTAPIService apiService;
@@ -19,7 +30,7 @@ public class LocationDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_city_detail);
+        setContentView(R.layout.activity_location_detail);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -35,8 +46,8 @@ public class LocationDetail extends AppCompatActivity {
         // Recupero el bundle con los datos
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
-            int positionReceived = bundle.getInt(MainActivity.KEY_ID);
-            String locationReceived = bundle.getString(MainActivity.KEY_LOCATION);
+            int positionReceived = bundle.getInt(LocationsActivity.KEY_ID);
+            String locationReceived = bundle.getString(LocationsActivity.KEY_LOCATION);
 
             getLocationDetail(locationReceived);
 
@@ -46,9 +57,44 @@ public class LocationDetail extends AppCompatActivity {
         }
     }
 
-    public void getLocationDetail(String location) {
+    public void getLocationDetail(String locationReceived) {
+        // Realiza la llamada por nombre de ciudad
+        Call<Cities> call_async = apiService.getAllMeasurementsFromCity(locationReceived);
+        Log.i(LOG_TAG, "getLocation => location=" + locationReceived);
+
+        // Asíncrona
+        call_async.enqueue(new Callback<Cities>() {
+            @Override
+            public void onResponse(Call<Cities> call, Response<Cities> response) {
+                final Cities detailsList = response.body();
+                if (null != detailsList) {
+
+                    locationDetailAdapter = new LocationDetailAdapter(
+                            getApplicationContext(),
+                            R.layout.activity_location_detail_item,
+                            detailsList.getResults()
+                    );
+                    lvLocationDetailsList.setAdapter(locationDetailAdapter);
+
+                } else {
+                    //tvResponse.setText(getString(R.string.strError));
+                    Log.i(LOG_TAG, getString(R.string.strError));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cities> call, Throwable t) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        "ERROR: " + t.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+                Log.e(LOG_TAG, t.getMessage());
+            }
+        });
 
 
 
     }
+
 }
