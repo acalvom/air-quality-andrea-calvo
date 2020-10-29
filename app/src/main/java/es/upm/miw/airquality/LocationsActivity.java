@@ -100,7 +100,7 @@ public class LocationsActivity extends AppCompatActivity {
                             bundle.putString(KEY_LOCATION, locationCode);
 
                             // Intent es lo que necesitamos para pasar de una actividad a otra
-                            Intent intent = new Intent(getApplicationContext(), CityDetail.class);
+                            Intent intent = new Intent(getApplicationContext(), LocationDetail.class);
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }

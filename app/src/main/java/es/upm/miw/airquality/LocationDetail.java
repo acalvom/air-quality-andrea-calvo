@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static es.upm.miw.airquality.MainActivity.API_BASE_URL;
 
-public class CityDetail extends AppCompatActivity {
+public class LocationDetail extends AppCompatActivity {
 
     CityListAdapter airQualityAdapter;
     ListView lvLocationDetailsList;
