@@ -13,13 +13,13 @@ import java.util.List;
 
 import es.upm.miw.airquality.models.Result;
 
-public class CityAdapter extends ArrayAdapter {
+public class AirQualityAdapter extends ArrayAdapter {
 
     private Context _contexto;
     private int _idLayout;
     private List<Result> _resultados;
 
-    public CityAdapter(Context context, int idLayout, List<Result> results) {
+    public AirQualityAdapter(Context context, int idLayout, List<Result> results) {
         super(context, idLayout, results);
         this._contexto = context;
         this._idLayout = idLayout;

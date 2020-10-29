@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CityDetail">
+    tools:context=".LocationsActivity">
 
     <TextView
         android:id="@+id/tvPosition"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content" />
 
     <ListView
-        android:id="@+id/lvCityDetail"
+        android:id="@+id/lvLocationsList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"/>

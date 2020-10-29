@@ -18,18 +18,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static es.upm.miw.airquality.MainActivity.API_BASE_URL;
 import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 
-public class CityDetail extends AppCompatActivity {
+public class LocationsActivity extends AppCompatActivity {
 
     String cityReceived = "";
-    CityAdapter cityAdapter;
-    ListView lvCityDetail;
+    AirQualityAdapter airQualityAdapter;
+    ListView lvLocationsList;
 
     private ICityRESTAPIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_city_detail);
+        setContentView(R.layout.activity_locations);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -41,7 +41,7 @@ public class CityDetail extends AppCompatActivity {
         // Recupero el recurso asociado en la vista
         TextView tvPosition = findViewById(R.id.tvPosition);
         TextView tvCityName = findViewById(R.id.tvCityName);
-        lvCityDetail = findViewById(R.id.lvCityDetail);
+        lvLocationsList = findViewById(R.id.lvLocationsList);
 
 
         // Recupero el bundle con los datos
@@ -73,12 +73,12 @@ public class CityDetail extends AppCompatActivity {
                 Cities city = response.body();
                 if (null != city) {
 
-                    cityAdapter = new CityAdapter(
+                    airQualityAdapter = new AirQualityAdapter(
                             getApplicationContext(),
                             R.layout.result_item,
                             city.getResults()
                     );
-                    lvCityDetail.setAdapter(cityAdapter);
+                    lvLocationsList.setAdapter(airQualityAdapter);
                     /*
                     for (int i = 0; i < city.getResults().size(); i++) {
                         tvResponse.append(i +

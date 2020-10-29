@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="es.upm.miw.airquality.CityDetail"
+        <activity android:name="es.upm.miw.airquality.LocationsActivity"
             android:label="@string/activity_city_detail"
             />
     </application>

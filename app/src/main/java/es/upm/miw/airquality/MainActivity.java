@@ -58,8 +58,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private EditText etCityName;
     private Button mSendButton;
 
-    ListView lvCityList, lvCityDetail;
-    CityAdapter cityAdapter;
+    ListView lvCityList, lvLocationsList;
+    AirQualityAdapter airQualityAdapter;
 
     private ICityRESTAPIService apiService;
 
@@ -74,7 +74,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mSendButton = (Button) findViewById(R.id.sendButton);
 
         lvCityList = (ListView) findViewById(R.id.lvCityList);
-        lvCityDetail = (ListView) findViewById(R.id.lvCityDetail);
+        lvLocationsList = (ListView) findViewById(R.id.lvLocationsList);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -172,12 +172,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 final Cities cityList = response.body();
 
                 if (null != cityList) {
-                    cityAdapter = new CityAdapter(
+                    airQualityAdapter = new AirQualityAdapter(
                             getApplicationContext(),
                             R.layout.result_item,
                             cityList.getResults()
                     );
-                    lvCityList.setAdapter(cityAdapter);
+                    lvCityList.setAdapter(airQualityAdapter);
                     lvCityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -196,7 +196,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             bundle.putString(KEY_CITY, cityName);
 
                             // Intent es lo que necesitamos para pasar de una actividad a otra
-                            Intent intent = new Intent(getApplicationContext(), CityDetail.class);
+                            Intent intent = new Intent(getApplicationContext(), LocationsActivity.class);
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }
@@ -257,12 +257,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Cities city = response.body();
                 if (null != city) {
 
-                    cityAdapter = new CityAdapter(
+                    airQualityAdapter = new AirQualityAdapter(
                             getApplicationContext(),
                             R.layout.result_item,
                             city.getResults()
                     );
-                    lvCityDetail.setAdapter(cityAdapter);
+                    lvLocationsList.setAdapter(airQualityAdapter);
                     /*
                     for (int i = 0; i < city.getResults().size(); i++) {
                         tvResponse.append(i +
