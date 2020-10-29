@@ -24,8 +24,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.Arrays;
+import java.util.List;
 
 import es.upm.miw.airquality.models.Cities;
+import es.upm.miw.airquality.models.Result;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -184,13 +186,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             String texto = "Opción elegida (" +
                                     position +
                                     "): " +
-                                    parent.getItemAtPosition(position).toString();
+                                    //parent.getItemAtPosition(position).toString();
+                                    cityList.getResults().get(position).getCity();
+
                             Log.i(LOG_TAG, texto);
+                            String cityName = cityList.getResults().get(position).getCity();
 
                             // Clave valor. Lo que le pasas a la siguiente aplicacion
                             Bundle bundle = new Bundle();
                             bundle.putInt(KEY_ID, position);
-                            bundle.putString(KEY_CITY, parent.getItemAtPosition(position).toString());
+                            bundle.putString(KEY_CITY, cityName);
 
                             // Intent es lo que necesitamos para pasar de una actividad a otra
                             Intent intent = new Intent(getApplicationContext(), CityDetail.class);
