@@ -11,19 +11,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import es.upm.miw.airquality.models.Measurement;
 import es.upm.miw.airquality.models.Result;
 
 public class LocationDetailAdapter extends ArrayAdapter {
 
     private Context _contexto;
     private int _idLayout;
-    private List<Result> _resultados;
+    private List<Measurement> _measurements;
 
-    public LocationDetailAdapter(Context context, int idLayout, List<Result> results) {
-        super(context, idLayout, results);
+    public LocationDetailAdapter(Context context, int idLayout, List<Measurement> measurements) {
+        super(context, idLayout, measurements);
         this._contexto = context;
         this._idLayout = idLayout;
-        this._resultados = results;
+        this._measurements = measurements;
         setNotifyOnChange(true);
     }
 
@@ -47,20 +48,20 @@ public class LocationDetailAdapter extends ArrayAdapter {
          * Comprobar que al menos hay un resultado
          * Asignar las vistas a los datos
          */
-        Result result = _resultados.get(position);
+        Measurement measurement = _measurements.get(position);
 
-        if (result != null) {
+        if (measurement != null) {
 
             TextView tvDetailPosition = convertView.findViewById(R.id.tvDetailPosition);
             TextView tvDetailParameter = convertView.findViewById(R.id.tvDetailParameter);
             TextView tvDetailValue = convertView.findViewById(R.id.tvDetailValue);
             TextView tvDetailUnit = convertView.findViewById(R.id.tvDetailUnit);
             TextView tvDetailLastUpdate = convertView.findViewById(R.id.tvDetailLastUpdate);
-/*
-            String parameter = result.getMeasurements().get(position).getParameter();
-            Double value = result.getMeasurements().get(position).getValue();
-            String unit = result.getMeasurements().get(position).getUnit();
-            String lastUpdate = result.getMeasurements().get(position).getLastUpdated();
+
+            String parameter = measurement.getParameter();
+            Double value = measurement.getValue();
+            String unit = measurement.getUnit();
+            String lastUpdate = measurement.getLastUpdated();
 
             tvDetailPosition.setText(Integer.toString(position));
             tvDetailParameter.setText(parameter);
@@ -68,28 +69,29 @@ public class LocationDetailAdapter extends ArrayAdapter {
             tvDetailUnit.setText(unit);
             tvDetailLastUpdate.setText(lastUpdate);
 
-            */
-            int numberMeasurements = result.getMeasurements().size();
+            /*
+            //List<Measurement> measurementes = result.getMeasurements();
+
+            int numberMeasurements = measurement.getMeasurements().size();
             for (int i = 0; i < numberMeasurements; i++){
                 String parameter = result.getMeasurements().get(i).getParameter();
                 Double value = result.getMeasurements().get(i).getValue();
                 String unit = result.getMeasurements().get(i).getUnit();
                 String lastUpdate = result.getMeasurements().get(i).getLastUpdated();
-                tvDetailPosition.append(Integer.toString(i + 1)+ "\n\n");
-                tvDetailParameter.append(parameter+ "\n\n");
-                tvDetailValue.append((Double.toString( value))+ "\n\n");
-                tvDetailUnit.append(unit+ "\n\n");
-                tvDetailLastUpdate.append(lastUpdate + "\n\n" );
 
-                //tvDetailPosition.setText(Integer.toString(i));
-                //tvDetailParameter.setText(parameter);
-                //tvDetailValue.setText(Double.toString( value));
-                //tvDetailUnit.setText(unit);
-                //tvDetailLastUpdate.setText(lastUpdate);
+                //tvDetailPosition.append(Integer.toString(i + 1)+ "\n\n");
+                //tvDetailParameter.append(parameter+ "\n\n");
+                //tvDetailValue.append((Double.toString( value))+ "\n\n");
+                //tvDetailUnit.append(unit+ "\n\n");
+                //tvDetailLastUpdate.append(lastUpdate + "\n\n" );
+
+                tvDetailPosition.setText(Integer.toString(i));
+                tvDetailParameter.setText(parameter);
+                tvDetailValue.setText(Double.toString( value));
+                tvDetailUnit.setText(unit);
+                tvDetailLastUpdate.setText(lastUpdate);
             }
-
-
-
+*/
         }
         return convertView;
     }

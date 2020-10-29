@@ -222,8 +222,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     @Override
                     public void onClick(View view) {
                         //cityList.getResults().get(0).getCoordinates();
-                        mMessagesDatabaseReference.push().setValue(cityList.getResults().get(0).getLocation());
-                        Log.i(LOG_TAG, "getAllCities => onClick=" + cityList.getResults().get(0).getLocation());
+                        mMessagesDatabaseReference.push().setValue(cityList.getResults().get(0).getCity());
+                        Log.i(LOG_TAG, "Update to Cloud => onClick=" + cityList.getResults().get(0).getCity());
                     }
                 });
             }

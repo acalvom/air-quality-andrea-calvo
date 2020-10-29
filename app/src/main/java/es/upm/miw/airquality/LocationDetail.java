@@ -69,12 +69,15 @@ public class LocationDetail extends AppCompatActivity {
                 final Cities detailsList = response.body();
                 if (null != detailsList) {
 
-                    locationDetailAdapter = new LocationDetailAdapter(
-                            getApplicationContext(),
-                            R.layout.activity_location_detail_item,
-                            detailsList.getResults()
-                    );
-                    lvLocationDetailsList.setAdapter(locationDetailAdapter);
+
+                    for (int i = 0; i < detailsList.getResults().size(); i++){
+                        locationDetailAdapter = new LocationDetailAdapter(
+                                getApplicationContext(),
+                                R.layout.activity_location_detail_item,
+                                detailsList.getResults().get(i).getMeasurements()
+                        );
+                        lvLocationDetailsList.setAdapter(locationDetailAdapter);
+                    }
 
                 } else {
                     //tvResponse.setText(getString(R.string.strError));
