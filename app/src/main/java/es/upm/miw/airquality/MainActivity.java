@@ -7,8 +7,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,8 +56,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     final static String KEY_DETAIL = "KEY_DETAIL";
 
     private TextView tvResponse;
-    private EditText etCityName;
-    private Button mSendButton;
+    private ImageButton mSendButton;
 
     ListView lvCityList, lvLocationsList;
     CityListAdapter cityListAdapter;
@@ -72,8 +70,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.btnLogout).setOnClickListener(this);
 
         //tvResponse  = (TextView) findViewById(R.id.tvResponse);
-        etCityName  = (EditText) findViewById(R.id.etCityName);
-        mSendButton = (Button) findViewById(R.id.sendButton);
+        mSendButton = (ImageButton) findViewById(R.id.ibUploadToCloud);
 
         lvCityList = (ListView) findViewById(R.id.lvCityList);
 

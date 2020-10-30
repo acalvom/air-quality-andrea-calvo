@@ -7,14 +7,11 @@
     <string name="signed_out">Signed out!</string>
     <string name="signed_cancelled">Signed in cancelled</string>
     <string name="logout_button">Logout</string>
-    <string name="firebase_user_fmt"> %s</string>
+    <string name="firebase_user_fmt">Logged user: %s</string>
 
-    <string name="strError">No se ha recuperado ningún país</string>
-    <string name="btnFindCity">Buscar ciudad</string>
-    <string name="btnFindAllCities">Todas las ciudades</string>
-
-    <string name="send_button_label">Send to cloud</string>
-
+    <string name="strError">No cities recovered</string>
+    <string name="btnFindAllCities">Update Cities</string>
+    <string name="btnUploadCloud">Upload to cloud</string>
 
     <!-- Location Details -->
     <string name="txtLocationDetailsPosition">#</string>
