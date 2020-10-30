@@ -14,4 +14,19 @@
     <string name="btnFindAllCities">Todas las ciudades</string>
 
     <string name="send_button_label">Send to cloud</string>
+
+
+    <!-- Location Details -->
+    <string name="txtLocationDetailsPosition">#</string>
+    <string name="txtLocationDetailsParameter">Param</string>
+    <string name="txtLocationDetailsValue">Value</string>
+    <string name="txtLocationDetailsUnits">Units</string>
+    <string name="txtLocationDetailsLastUpdate">Last Update</string>
+
+    <!-- Locations List -->
+    <string name="txtLocationPosition">#</string>
+    <string name="txtLocationCode">Code</string>
+    <string name="txtLocationLatitude">Latitude</string>
+    <string name="txtLocationLongitude">Longitude</string>
+
 </resources>

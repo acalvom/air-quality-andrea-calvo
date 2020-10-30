@@ -6,6 +6,49 @@
     android:orientation="vertical"
     tools:context=".LocationsActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvPositionHeaderLocations"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            android:text="@string/txtLocationPosition" />
+
+        <TextView
+            android:id="@+id/tvLocationCodeHeaderLocations"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            android:text="@string/txtLocationCode" />
+
+        <TextView
+            android:id="@+id/tvLatitudeHeaderLocations"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            android:text="@string/txtLocationLatitude" />
+
+        <TextView
+            android:id="@+id/tvLongitudeHeaderLocations"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            android:text="@string/txtLocationLongitude" />
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/lvLocationsList"
         android:layout_width="match_parent"

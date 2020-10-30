@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import es.upm.miw.airquality.models.Measurement;
-import es.upm.miw.airquality.models.Result;
 
 public class LocationDetailAdapter extends ArrayAdapter {
 
@@ -52,11 +51,11 @@ public class LocationDetailAdapter extends ArrayAdapter {
 
         if (measurement != null) {
 
-            TextView tvDetailPosition = convertView.findViewById(R.id.tvDetailPosition);
-            TextView tvDetailParameter = convertView.findViewById(R.id.tvDetailParameter);
-            TextView tvDetailValue = convertView.findViewById(R.id.tvDetailValue);
-            TextView tvDetailUnit = convertView.findViewById(R.id.tvDetailUnit);
-            TextView tvDetailLastUpdate = convertView.findViewById(R.id.tvDetailLastUpdate);
+            TextView tvDetailPosition = convertView.findViewById(R.id.tvDetailPositionLocationDetail);
+            TextView tvDetailParameter = convertView.findViewById(R.id.tvDetailParameterLocationDetail);
+            TextView tvDetailValue = convertView.findViewById(R.id.tvDetailValueLocationDetail);
+            TextView tvDetailUnit = convertView.findViewById(R.id.tvDetailUnitLocationDetail);
+            TextView tvDetailLastUpdate = convertView.findViewById(R.id.tvDetailLastUpdateLocationDetail);
 
             String parameter = measurement.getParameter();
             Double value = measurement.getValue();

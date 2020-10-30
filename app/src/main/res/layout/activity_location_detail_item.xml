@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/tvDetailPosition"
+        android:id="@+id/tvDetailPositionLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
@@ -15,7 +15,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/tvDetailParameter"
+        android:id="@+id/tvDetailParameterLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.5"
@@ -24,7 +24,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/tvDetailValue"
+        android:id="@+id/tvDetailValueLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.5"
@@ -33,7 +33,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/tvDetailUnit"
+        android:id="@+id/tvDetailUnitLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.5"
@@ -42,7 +42,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/tvDetailLastUpdate"
+        android:id="@+id/tvDetailLastUpdateLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
