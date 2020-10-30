@@ -1,11 +1,9 @@
 package es.upm.miw.airquality;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
+
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -40,7 +38,6 @@ public class LocationDetail extends AppCompatActivity {
         apiService = retrofit.create(ICityRESTAPIService.class);
 
         // Recupero el recurso asociado en la vista
-
         lvLocationDetailsList = findViewById(R.id.lvLocationDetailList);
 
         // Recupero el bundle con los datos
@@ -50,10 +47,6 @@ public class LocationDetail extends AppCompatActivity {
             String locationReceived = bundle.getString(LocationsActivity.KEY_LOCATION);
 
             getLocationDetail(locationReceived);
-
-            // Asignar datos en la vista
-            //tvPosition.setText(String.format(Locale.getDefault(), "%2d", positionReceived));
-            //tvCityName.setText(cityReceived);
         }
     }
 
@@ -68,8 +61,6 @@ public class LocationDetail extends AppCompatActivity {
             public void onResponse(Call<Cities> call, Response<Cities> response) {
                 final Cities detailsList = response.body();
                 if (null != detailsList) {
-
-
                     for (int i = 0; i < detailsList.getResults().size(); i++){
                         locationDetailAdapter = new LocationDetailAdapter(
                                 getApplicationContext(),
@@ -80,7 +71,6 @@ public class LocationDetail extends AppCompatActivity {
                     }
 
                 } else {
-                    //tvResponse.setText(getString(R.string.strError));
                     Log.i(LOG_TAG, getString(R.string.strError));
                 }
             }

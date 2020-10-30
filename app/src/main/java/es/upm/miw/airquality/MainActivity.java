@@ -46,7 +46,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     final static String KEY_ID = "KEY_ID";
     final static String KEY_CITY = "KEY_CITY";
     final static String KEY_LOCATION = "KEY_LOCATION";
-    final static String KEY_DETAIL = "KEY_DETAIL";
 
     private ImageButton ibUploadToCloud;
     ListView lvCityList;
