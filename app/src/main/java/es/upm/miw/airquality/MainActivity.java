@@ -45,20 +45,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private DatabaseReference mMessagesDatabaseReference;
     private ChildEventListener mChildEventListener;
 
-    // Firebase storage variables
-    private FirebaseStorage mFirebaseStorage;
-    private StorageReference mChatPhotosStorageReference;
-
     private static final int RC_SIGN_IN = 2018;
     final static String KEY_ID = "KEY_ID";
     final static String KEY_CITY = "KEY_CITY";
     final static String KEY_LOCATION = "KEY_LOCATION";
     final static String KEY_DETAIL = "KEY_DETAIL";
 
-    private TextView tvResponse;
     private ImageButton mSendButton;
 
-    ListView lvCityList, lvLocationsList;
+    ListView lvCityList;
     CityListAdapter cityListAdapter;
 
     private ICityRESTAPIService apiService;
@@ -69,7 +64,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         findViewById(R.id.btnLogout).setOnClickListener(this);
 
-        //tvResponse  = (TextView) findViewById(R.id.tvResponse);
         mSendButton = (ImageButton) findViewById(R.id.ibUploadToCloud);
 
         lvCityList = (ListView) findViewById(R.id.lvCityList);
@@ -84,12 +78,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // Get instance of Firebase database
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseStorage = FirebaseStorage.getInstance();
-
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("measurement");
 
+        // Get instance of Firebase authentication
         mFirebaseAuth = FirebaseAuth.getInstance();
-
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -117,11 +109,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
             }
         };
-
-
-
     }
-
 
     @Override
     protected void onPause() {
@@ -199,18 +187,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             startActivity(intent);
                         }
                     });
-                    /*
-                    for (int i = 0; i < cityList.getResults().size(); i++) {
-                        tvResponse.append(i +
-                                " - [" + cityList.getResults().get(i).getLocation()+ "] " +
-                                " - [" + cityList.getResults().get(i).getCity()+ "] " +
-                                "\n");
-                    }
-                     */
 
                     Log.i(LOG_TAG, "getAllCities => respuesta=" + cityList.getResults());
                 } else {
-                    //tvResponse.setText(getString(R.string.strError));
                     Log.i(LOG_TAG, getString(R.string.strError));
                 }
 
@@ -218,13 +197,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 mSendButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //cityList.getResults().get(0).getCoordinates();
-                        mMessagesDatabaseReference.push().setValue(cityList.getResults().get(0).getCity());
-                        Log.i(LOG_TAG, "Update to Cloud => onClick=" + cityList.getResults().get(0).getCity());
+                        for (int i = 0; i < cityList.getResults().size(); i++) {
+                            mMessagesDatabaseReference.push().setValue(cityList.getResults().get(i).getCity());
+                            Log.i(LOG_TAG, "Update to Cloud => city=" + cityList.getResults().get(i).getCity());
+                        }
                     }
                 });
             }
-
 
             @Override
             public void onFailure(Call<Cities> call, Throwable t) {
@@ -236,10 +215,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Log.e(LOG_TAG, t.getMessage());
             }
         });
-
-
     }
-
-
-
 }
