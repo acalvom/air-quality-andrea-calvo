@@ -19,8 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.Arrays;
 
@@ -34,16 +32,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends Activity implements View.OnClickListener {
 
     static final String API_BASE_URL = "https://api.openaq.org";
-
     final static String LOG_TAG = "MiW";
 
+    // Firebase authentication variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     // Firebase database variables
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
-    private ChildEventListener mChildEventListener;
 
     private static final int RC_SIGN_IN = 2018;
     final static String KEY_ID = "KEY_ID";
@@ -51,8 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     final static String KEY_LOCATION = "KEY_LOCATION";
     final static String KEY_DETAIL = "KEY_DETAIL";
 
-    private ImageButton mSendButton;
-
+    private ImageButton ibUploadToCloud;
     ListView lvCityList;
     CityListAdapter cityListAdapter;
 
@@ -64,8 +60,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         findViewById(R.id.btnLogout).setOnClickListener(this);
 
-        mSendButton = (ImageButton) findViewById(R.id.ibUploadToCloud);
-
+        ibUploadToCloud = (ImageButton) findViewById(R.id.ibUploadToCloud);
         lvCityList = (ListView) findViewById(R.id.lvCityList);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -74,7 +69,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 .build();
 
         apiService = retrofit.create(ICityRESTAPIService.class);
-
 
         // Get instance of Firebase database
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -138,11 +132,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
     @Override
     public void onClick(View v) {
         mFirebaseAuth.signOut();
@@ -170,7 +159,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             String texto = "Opción elegida (" +
                                     position +
                                     "): " +
-                                    //parent.getItemAtPosition(position).toString();
                                     cityList.getResults().get(position).getCity();
 
                             Log.i(LOG_TAG, texto);
@@ -194,7 +182,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
 
                 //  Send button sends a message and clears the EditText. Send message to Backend
-                mSendButton.setOnClickListener(new View.OnClickListener() {
+                ibUploadToCloud.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         for (int i = 0; i < cityList.getResults().size(); i++) {
