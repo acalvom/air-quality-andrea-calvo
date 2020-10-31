@@ -85,9 +85,5 @@ public class LocationDetail extends AppCompatActivity {
                 Log.e(LOG_TAG, t.getMessage());
             }
         });
-
-
-
     }
-
 }

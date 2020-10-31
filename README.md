@@ -1,3 +1,3 @@
 # AirQuality
 
-Notar que es necesario cargar un fichero google-services.json apropiado en FirebaseUI/app/
+Info has been loaded from https://www.breeze-technologies.de/blog/what-is-an-air-quality-index-how-is-it-calculated/

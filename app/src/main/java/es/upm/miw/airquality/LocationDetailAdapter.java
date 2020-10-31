@@ -3,15 +3,20 @@ package es.upm.miw.airquality;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import es.upm.miw.airquality.models.Measurement;
+
+import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 
 public class LocationDetailAdapter extends ArrayAdapter {
 
@@ -21,8 +26,8 @@ public class LocationDetailAdapter extends ArrayAdapter {
 
     public LocationDetailAdapter(Context context, int idLayout, List<Measurement> measurements) {
         super(context, idLayout, measurements);
-        this._contexto = context;
-        this._idLayout = idLayout;
+        this._contexto     = context;
+        this._idLayout     = idLayout;
         this._measurements = measurements;
         setNotifyOnChange(true);
     }
@@ -51,22 +56,120 @@ public class LocationDetailAdapter extends ArrayAdapter {
 
         if (measurement != null) {
 
-            TextView tvDetailPosition = convertView.findViewById(R.id.tvDetailPositionLocationDetail);
-            TextView tvDetailParameter = convertView.findViewById(R.id.tvDetailParameterLocationDetail);
-            TextView tvDetailValue = convertView.findViewById(R.id.tvDetailValueLocationDetail);
-            TextView tvDetailUnit = convertView.findViewById(R.id.tvDetailUnitLocationDetail);
+            TextView tvDetailPosition   = convertView.findViewById(R.id.tvDetailPositionLocationDetail);
+            TextView tvDetailParameter  = convertView.findViewById(R.id.tvDetailParameterLocationDetail);
+            TextView tvDetailValue      = convertView.findViewById(R.id.tvDetailValueLocationDetail);
+            TextView tvDetailUnit       = convertView.findViewById(R.id.tvDetailUnitLocationDetail);
             TextView tvDetailLastUpdate = convertView.findViewById(R.id.tvDetailLastUpdateLocationDetail);
+            ImageView ivDetailAQI       = convertView.findViewById(R.id.ivDetailAQILocationDetail);
 
-            String parameter = measurement.getParameter();
-            Double value = measurement.getValue();
-            String unit = measurement.getUnit();
+            String parameter  = measurement.getParameter();
+            Double value      = measurement.getValue();
+            String unit       = measurement.getUnit();
             String lastUpdate = measurement.getLastUpdated();
 
             tvDetailPosition.setText(Integer.toString(position));
-            tvDetailParameter.setText(parameter);
+            tvDetailParameter.setText(parameter.toUpperCase());
             tvDetailValue.setText(Double.toString( value));
             tvDetailUnit.setText(unit);
-            tvDetailLastUpdate.setText(lastUpdate);
+
+            String regexTarget = "\\b:00.00.000Z\\b";
+            tvDetailLastUpdate.setText(lastUpdate.replaceAll(regexTarget, "h"));
+
+            if (parameter.equals("bc")){
+                Log.i(LOG_TAG, "Parameter is: Black Carbon");
+
+            }else if(parameter.equals("co")){
+                Log.i(LOG_TAG, "Parameter is: Carbon Monoxide");
+                if(value < 4){
+                    // AQI is good
+                    ivDetailAQI.setImageResource(R.mipmap.good);
+                }else if (value >= 4 && value < 8){
+                    // AQI is moderate
+                    ivDetailAQI.setImageResource(R.mipmap.moderate);
+                }else{
+                    // AQI is unhealthy
+                    ivDetailAQI.setImageResource(R.mipmap.unhealthy);
+                }
+
+            }else if(parameter.equals("no2")){
+                Log.i(LOG_TAG, "Parameter is: Nitrogen Dioxide");
+                if(value < 50){
+                    // AQI is good
+                    ivDetailAQI.setImageResource(R.mipmap.good);
+
+                }else if (value >= 50 && value < 100){
+                    // AQI is moderate
+                    ivDetailAQI.setImageResource(R.mipmap.moderate);
+
+                }else{
+                    // AQI is unhealthy
+                    ivDetailAQI.setImageResource(R.mipmap.unhealthy);
+                }
+
+            }else if(parameter.equals("pm25")){
+                Log.i(LOG_TAG, "Parameter is: Suspended particulates smaller than 2.5 μm");
+                if(value < 15){
+                    // AQI is good
+                    ivDetailAQI.setImageResource(R.mipmap.good);
+
+                }else if (value >= 15 && value < 30){
+                    // AQI is moderate
+                    ivDetailAQI.setImageResource(R.mipmap.moderate);
+
+                }else{
+                    // AQI is unhealthy
+                    ivDetailAQI.setImageResource(R.mipmap.unhealthy);
+                }
+
+            }else if(parameter.equals("pm10")){
+                Log.i(LOG_TAG, "Parameter is: Suspended particulates smaller than 10 μm");
+                if(value < 25){
+                    // AQI is good
+                    ivDetailAQI.setImageResource(R.mipmap.good);
+
+                }else if (value >= 25 && value < 50){
+                    // AQI is moderate
+                    ivDetailAQI.setImageResource(R.mipmap.moderate);
+
+                }else{
+                    // AQI is unhealthy
+                    ivDetailAQI.setImageResource(R.mipmap.unhealthy);
+                }
+
+            }else if(parameter.equals("o3")){
+                Log.i(LOG_TAG, "Parameter is: Ozone");
+                if(value < 65){
+                    // AQI is good
+                    ivDetailAQI.setImageResource(R.mipmap.good);
+
+                }else if (value >= 65 && value < 120){
+                    // AQI is moderate
+                    ivDetailAQI.setImageResource(R.mipmap.moderate);
+
+                }else{
+                    // AQI is unhealthy
+                    ivDetailAQI.setImageResource(R.mipmap.unhealthy);
+                }
+
+            }else if(parameter.equals("so2")){
+                Log.i(LOG_TAG, "Parameter is: Sulfur Dioxide");
+                if(value < 50){
+                    // AQI is good
+                    ivDetailAQI.setImageResource(R.mipmap.good);
+
+                }else if (value >= 50 && value < 120){
+                    // AQI is moderate
+                    ivDetailAQI.setImageResource(R.mipmap.moderate);
+
+                }else{
+                    // AQI is unhealthy
+                    ivDetailAQI.setImageResource(R.mipmap.unhealthy);
+                }
+
+            }
+
+
 
             /*
             //List<Measurement> measurementes = result.getMeasurements();

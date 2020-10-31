@@ -19,6 +19,7 @@
     <string name="txtLocationDetailsValue">Value</string>
     <string name="txtLocationDetailsUnits">Units</string>
     <string name="txtLocationDetailsLastUpdate">Last Update</string>
+    <string name="txtLocationDetailsAQI">AQI</string>
 
     <!-- Locations List -->
     <string name="txtLocationPosition">#</string>
