@@ -1,17 +1,24 @@
 package es.upm.miw.airquality;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import es.upm.miw.airquality.models.Result;
+
+import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 
 public class LocationsAdapter extends ArrayAdapter {
 
@@ -42,6 +49,7 @@ public class LocationsAdapter extends ArrayAdapter {
             convertView = inflater.inflate(this._idLayout, null);
         }
 
+
         /**
          * Traer el resultado de la lista que este en "position"
          * Comprobar que al menos hay un resultado
@@ -49,22 +57,33 @@ public class LocationsAdapter extends ArrayAdapter {
          */
         Result result = _resultados.get(position);
         if (result != null) {
-
             TextView tvLocationPosition  = convertView.findViewById(R.id.tvLocationListPosition);
             TextView tvLocationCode      = convertView.findViewById(R.id.tvLocationListLocationCode);
-            TextView tvLocationLatitude  = convertView.findViewById(R.id.tvLocationListLocationLatitude);
-            TextView tvLocationLongitude = convertView.findViewById(R.id.tvLocationListLocationLongitude);
+            TextView tvLocationAddress      = convertView.findViewById(R.id.tvLocationListLocationAddress);
+            //TextView tvLocationLatitude  = convertView.findViewById(R.id.tvLocationListLocationLatitude);
+            //TextView tvLocationLongitude = convertView.findViewById(R.id.tvLocationListLocationLongitude);
 
             String locationCode = result.getLocation();
             Double latitude     = result.getCoordinates().getLatitude();
             Double longitude    = result.getCoordinates().getLongitude();
 
+            Geocoder geocoder = new Geocoder(_contexto, Locale.getDefault());
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String locationAddress = addresses.get(0).getAddressLine(0);
+
+            Log.i(LOG_TAG, locationAddress);
+
             tvLocationPosition.setText(Integer.toString(position + 1));
             tvLocationCode.setText(locationCode);
-            tvLocationLatitude.setText(Double.toString(latitude));
-            tvLocationLongitude.setText(Double.toString(longitude));
-
-
+            tvLocationAddress.setText(locationAddress);
+            //tvLocationCode.setText(locationCode);
+            //tvLocationLatitude.setText(Double.toString(latitude));
+            //tvLocationLongitude.setText(Double.toString(longitude));
         }
         return convertView;
     }

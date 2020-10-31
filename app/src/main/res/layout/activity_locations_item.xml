@@ -24,23 +24,12 @@
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/tvLocationListLocationLatitude"
+        android:id="@+id/tvLocationListLocationAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="6"
         android:gravity="center_horizontal"
         android:textStyle="bold"
         android:textAlignment="center" />
-
-    <TextView
-        android:id="@+id/tvLocationListLocationLongitude"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textAlignment="center" />
-
-
 
 </LinearLayout>

@@ -15,7 +15,7 @@
         <TextView
             android:id="@+id/tvPositionHeaderLocations"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:gravity="center_horizontal"
@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/tvLocationCodeHeaderLocations"
             android:layout_width="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:gravity="center_horizontal"
@@ -33,23 +33,13 @@
             android:textColor="@color/colorPrimary"/>
 
         <TextView
-            android:id="@+id/tvLatitudeHeaderLocations"
+            android:id="@+id/tvAddressHeaderLocations"
             android:layout_width="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="6"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:gravity="center_horizontal"
-            android:text="@string/txtLocationLatitude"
-            android:textColor="@color/colorPrimary"/>
-
-        <TextView
-            android:id="@+id/tvLongitudeHeaderLocations"
-            android:layout_width="0dp"
-            android:layout_weight="1.5"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:gravity="center_horizontal"
-            android:text="@string/txtLocationLongitude"
+            android:text="@string/txtLocationAddress"
             android:textColor="@color/colorPrimary"/>
 
     </LinearLayout>
