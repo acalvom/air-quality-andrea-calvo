@@ -50,10 +50,10 @@ public class AQIParameter {
     public int compareParameter() {
         int AQILevel = 100;
         if (parameterName.equals("bc")) {
-            Log.i(LOG_TAG, "Parameter is: Black Carbon");
+            Log.i(LOG_TAG, "BC: Black Carbon");
 
         } else if (parameterName.equals("co")) {
-            Log.i(LOG_TAG, "Parameter is: Carbon Monoxide");
+            Log.i(LOG_TAG, "CO: Carbon Monoxide");
             if (value < CO_GOOD) {
                 AQILevel = AQI_GOOD;
             } else if (value >= CO_GOOD && value < CO_MODERATE) {
@@ -63,7 +63,7 @@ public class AQIParameter {
             }
 
         } else if (parameterName.equals("no2")) {
-            Log.i(LOG_TAG, "Parameter is: Nitrogen Dioxide");
+            Log.i(LOG_TAG, "NO2: Nitrogen Dioxide");
             if (value < NO2_GOOD) {
                 AQILevel = AQI_GOOD;
             } else if (value >= NO2_GOOD && value < NO2_MODERATE) {
@@ -73,7 +73,7 @@ public class AQIParameter {
             }
 
         } else if (parameterName.equals("pm25")) {
-            Log.i(LOG_TAG, "Parameter is: Suspended particulates smaller than 2.5 μm");
+            Log.i(LOG_TAG, "PM25: Suspended particulates smaller than 2.5 μm");
             if (value < PM25_GOOD) {
                 AQILevel = AQI_GOOD;
             } else if (value >= PM25_GOOD && value < PM25_MODERATE) {
@@ -83,7 +83,7 @@ public class AQIParameter {
             }
 
         } else if (parameterName.equals("pm10")) {
-            Log.i(LOG_TAG, "Parameter is: Suspended particulates smaller than 10 μm");
+            Log.i(LOG_TAG, "PM10: Suspended particulates smaller than 10 μm");
             if (value < PM10_GOOD) {
                 AQILevel = AQI_GOOD;
             } else if (value >= PM10_GOOD && value < PM10_MODERATE) {
@@ -93,7 +93,7 @@ public class AQIParameter {
             }
 
         } else if (parameterName.equals("o3")) {
-            Log.i(LOG_TAG, "Parameter is: Ozone");
+            Log.i(LOG_TAG, "O3: Ozone");
             if (value < O3_GOOD) {
                 AQILevel = AQI_GOOD;
             } else if (value >= O3_GOOD && value < O3_MODERATE) {
@@ -103,7 +103,7 @@ public class AQIParameter {
             }
 
         } else if (parameterName.equals("so2")) {
-            Log.i(LOG_TAG, "Parameter is: Sulfur Dioxide");
+            Log.i(LOG_TAG, "SO2: Sulfur Dioxide");
             if (value < SO2_GOOD) {
                 AQILevel = AQI_GOOD;
             } else if (value >= SO2_GOOD && value < SO2_MODERATE) {
@@ -115,5 +115,4 @@ public class AQIParameter {
         }
         return AQILevel;
     }
-
 }
