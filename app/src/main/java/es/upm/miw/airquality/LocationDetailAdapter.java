@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import es.upm.miw.airquality.models.Measurement;
+import es.upm.miw.airquality.AQIParameter;
 
 import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 
@@ -76,6 +76,22 @@ public class LocationDetailAdapter extends ArrayAdapter {
             String regexTarget = "\\b:00.00.000Z\\b";
             tvDetailLastUpdate.setText(lastUpdate.replaceAll(regexTarget, "h"));
 
+            AQIParameter aqiParameter = new AQIParameter(parameter,value);
+            int AQILevel = aqiParameter.compareParameter();
+
+            if(AQILevel == 0){
+                // AQI is good
+                ivDetailAQI.setImageResource(R.mipmap.good);
+            }else if (AQILevel == 1){
+                // AQI is moderate
+                ivDetailAQI.setImageResource(R.mipmap.moderate);
+            }else if (AQILevel == 2){
+                // AQI is unhealthy
+                ivDetailAQI.setImageResource(R.mipmap.unhealthy);
+            }
+
+
+            /*
             if (parameter.equals("bc")){
                 Log.i(LOG_TAG, "Parameter is: Black Carbon");
 
@@ -169,6 +185,8 @@ public class LocationDetailAdapter extends ArrayAdapter {
 
             }
 
+
+             */
 
 
             /*
