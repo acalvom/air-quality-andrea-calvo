@@ -58,8 +58,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         findViewById(R.id.btnLogout).setOnClickListener(this);
 
-        ibUploadToCloud = (ImageButton) findViewById(R.id.ibUploadToCloudAllCities);
-        lvCityList      = (ListView) findViewById(R.id.lvCityList);
+        ibUploadToCloud = findViewById(R.id.ibUploadToCloudAllCities);
+        lvCityList = findViewById(R.id.lvCityList);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                     )).
                                     setIsSmartLockEnabled(!BuildConfig.DEBUG /* credentials */, true /* hints */).
                                     build(),
-                                    RC_SIGN_IN
+                            RC_SIGN_IN
                     );
                 }
             }

@@ -5,7 +5,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import java.util.Locale;
 
 import es.upm.miw.airquality.models.Result;
 
-import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 
 public class LocationsAdapter extends ArrayAdapter {
 
@@ -28,8 +26,8 @@ public class LocationsAdapter extends ArrayAdapter {
 
     public LocationsAdapter(Context context, int idLayout, List<Result> results) {
         super(context, idLayout, results);
-        this._contexto   = context;
-        this._idLayout   = idLayout;
+        this._contexto = context;
+        this._idLayout = idLayout;
         this._resultados = results;
         setNotifyOnChange(true);
     }
@@ -38,35 +36,25 @@ public class LocationsAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        /**
-         * Comprobar si existe una lista convertible para permitir hacer scroll
-         * sobre la lista que aparece en pantalla. Si no la tiene, la crea
-         * con el inflador que trae el contexto de la actividad anterior
-         */
         if (convertView == null) {
             LayoutInflater inflater =
                     (LayoutInflater) _contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(this._idLayout, null);
         }
 
-
-        /**
-         * Traer el resultado de la lista que este en "position"
-         * Comprobar que al menos hay un resultado
-         * Asignar las vistas a los datos
-         */
         Result result = _resultados.get(position);
         if (result != null) {
-            TextView tvLocationPosition  = convertView.findViewById(R.id.tvLocationListPosition);
-            TextView tvLocationCode      = convertView.findViewById(R.id.tvLocationListLocationCode);
-            TextView tvLocationAddress      = convertView.findViewById(R.id.tvLocationListLocationAddress);
-            //TextView tvLocationLatitude  = convertView.findViewById(R.id.tvLocationListLocationLatitude);
-            //TextView tvLocationLongitude = convertView.findViewById(R.id.tvLocationListLocationLongitude);
+            TextView tvLocationPosition = convertView.findViewById(R.id.tvLocationListPosition);
+            TextView tvLocationCode = convertView.findViewById(R.id.tvLocationListLocationCode);
+            TextView tvLocationAddress = convertView.findViewById(R.id.tvLocationListLocationAddress);
 
             String locationCode = result.getLocation();
-            Double latitude     = result.getCoordinates().getLatitude();
-            Double longitude    = result.getCoordinates().getLongitude();
+            Double latitude = result.getCoordinates().getLatitude();
+            Double longitude = result.getCoordinates().getLongitude();
 
+            /**
+             * With Geocoder the address from the Latitude and Longitude parameters is located
+             */
             Geocoder geocoder = new Geocoder(_contexto, Locale.getDefault());
             List<Address> addresses = null;
             try {
@@ -76,14 +64,9 @@ public class LocationsAdapter extends ArrayAdapter {
             }
             String locationAddress = addresses.get(0).getAddressLine(0);
 
-            Log.i(LOG_TAG, locationAddress);
-
             tvLocationPosition.setText(Integer.toString(position + 1));
             tvLocationCode.setText(locationCode);
             tvLocationAddress.setText(locationAddress);
-            //tvLocationCode.setText(locationCode);
-            //tvLocationLatitude.setText(Double.toString(latitude));
-            //tvLocationLongitude.setText(Double.toString(longitude));
         }
         return convertView;
     }

@@ -47,17 +47,17 @@ public class LocationDetail extends AppCompatActivity {
         apiService = retrofit.create(ICityRESTAPIService.class);
 
         // Recupero el recurso asociado en la vista
-        lvLocationDetailsList  = findViewById(R.id.lvLocationDetailList);
+        lvLocationDetailsList = findViewById(R.id.lvLocationDetailList);
         ibUploadToCloudDetails = findViewById(R.id.ibUploadToCloudDetails);
 
         // Get instance of Firebase database
-        mFirebaseDatabase          = FirebaseDatabase.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("details");
 
         // Recupero el bundle con los datos
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
-            int positionReceived    = bundle.getInt(LocationsActivity.KEY_ID);
+            int positionReceived = bundle.getInt(LocationsActivity.KEY_ID);
             String locationReceived = bundle.getString(LocationsActivity.KEY_LOCATION);
 
             getLocationDetail(locationReceived);
@@ -75,7 +75,7 @@ public class LocationDetail extends AppCompatActivity {
             public void onResponse(Call<Cities> call, Response<Cities> response) {
                 final Cities detailsList = response.body();
                 if (null != detailsList) {
-                    for (int i = 0; i < detailsList.getResults().size(); i++){
+                    for (int i = 0; i < detailsList.getResults().size(); i++) {
                         locationDetailAdapter = new LocationDetailAdapter(
                                 getApplicationContext(),
                                 R.layout.activity_location_detail_item,

@@ -25,7 +25,6 @@ import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 
 public class LocationsActivity extends AppCompatActivity {
 
-    String cityReceived = "";
     LocationsAdapter locationsAdapter;
     ListView lvLocationsList;
 
@@ -57,10 +56,6 @@ public class LocationsActivity extends AppCompatActivity {
             String cityReceived = bundle.getString(MainActivity.KEY_CITY);
 
             getAllLocationsByCity(cityReceived);
-
-            // Asignar datos en la vista
-            //tvPosition.setText(String.format(Locale.getDefault(), "%2d", positionReceived));
-            //tvCityName.setText(cityReceived);
         }
     }
 
@@ -107,9 +102,8 @@ public class LocationsActivity extends AppCompatActivity {
                         }
                     });
 
-                    Log.i(LOG_TAG, "obtenerInfoCiudad => respuesta=" + locationsList);
+                    Log.i(LOG_TAG, "obtenerInfoLocation => respuesta=" + locationsList);
                 } else {
-                    //tvResponse.setText(getString(R.string.strError));
                     Log.i(LOG_TAG, getString(R.string.strError));
                 }
             }

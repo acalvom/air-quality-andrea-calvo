@@ -3,7 +3,6 @@ package es.upm.miw.airquality;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import es.upm.miw.airquality.models.Result;
-
-import static es.upm.miw.airquality.MainActivity.LOG_TAG;
 
 public class CityListAdapter extends ArrayAdapter {
 
