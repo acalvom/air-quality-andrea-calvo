@@ -21,8 +21,6 @@
     <string name="txtLocationPosition">#</string>
     <string name="txtLocationCode">Code</string>
     <string name="txtLocationAddress">Address</string>
-    <string name="txtLocationLatitude">Latitude</string>
-    <string name="txtLocationLongitude">Longitude</string>
 
     <!-- Location Details -->
     <string name="txtLocationDetailsPosition">#</string>
