@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -59,8 +58,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         findViewById(R.id.btnLogout).setOnClickListener(this);
 
-        ibUploadToCloud = (ImageButton) findViewById(R.id.ibUploadToCloud);
-        lvCityList = (ListView) findViewById(R.id.lvCityList);
+        ibUploadToCloud = (ImageButton) findViewById(R.id.ibUploadToCloudAllCities);
+        lvCityList      = (ListView) findViewById(R.id.lvCityList);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
@@ -71,7 +70,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // Get instance of Firebase database
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("measurement");
+        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("cityList");
 
         // Get instance of Firebase authentication
         mFirebaseAuth = FirebaseAuth.getInstance();

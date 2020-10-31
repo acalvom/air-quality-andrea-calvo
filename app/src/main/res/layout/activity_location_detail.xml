@@ -57,7 +57,7 @@
             android:textSize="16sp"
             android:text="@string/txtLocationDetailsLastUpdate" />
 
-        <ImageView
+        <TextView
             android:id="@+id/ivAQIHeader"
             android:layout_width="0dp"
             android:layout_weight="2"
@@ -73,5 +73,32 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"/>
+
+    <LinearLayout
+        android:id="@+id/userLogin"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ibUploadToCloudDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:background="@color/colorWhite"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:src="@mipmap/cloud" />
+
+        <TextView
+            android:id="@+id/etUploadCloud"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/btnUploadCloud"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -81,10 +81,10 @@ public class LocationDetailAdapter extends ArrayAdapter {
 
             }else if(parameter.equals("co")){
                 Log.i(LOG_TAG, "Parameter is: Carbon Monoxide");
-                if(value < 4){
+                if(value < 400){
                     // AQI is good
                     ivDetailAQI.setImageResource(R.mipmap.good);
-                }else if (value >= 4 && value < 8){
+                }else if (value >= 400 && value < 800){
                     // AQI is moderate
                     ivDetailAQI.setImageResource(R.mipmap.moderate);
                 }else{
