@@ -13,6 +13,16 @@
     <string name="btnFindAllCities">Update Cities</string>
     <string name="btnUploadCloud">Upload to cloud</string>
 
+    <!-- City List -->
+    <string name="txtCityListPosition">#</string>
+    <string name="txtCityListCityName">City Name</string>
+
+    <!-- Locations List -->
+    <string name="txtLocationPosition">#</string>
+    <string name="txtLocationCode">Code</string>
+    <string name="txtLocationLatitude">Latitude</string>
+    <string name="txtLocationLongitude">Longitude</string>
+
     <!-- Location Details -->
     <string name="txtLocationDetailsPosition">#</string>
     <string name="txtLocationDetailsParameter">Param</string>
@@ -20,11 +30,5 @@
     <string name="txtLocationDetailsUnits">Units</string>
     <string name="txtLocationDetailsLastUpdate">Last Update</string>
     <string name="txtLocationDetailsAQI">AQI</string>
-
-    <!-- Locations List -->
-    <string name="txtLocationPosition">#</string>
-    <string name="txtLocationCode">Code</string>
-    <string name="txtLocationLatitude">Latitude</string>
-    <string name="txtLocationLongitude">Longitude</string>
 
 </resources>

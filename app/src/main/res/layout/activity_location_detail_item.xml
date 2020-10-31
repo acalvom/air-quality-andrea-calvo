@@ -9,7 +9,7 @@
         android:id="@+id/tvDetailPositionLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:textStyle="bold"
         android:textAlignment="center" />
@@ -18,7 +18,7 @@
         android:id="@+id/tvDetailParameterLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
+        android:layout_weight="2"
         android:gravity="center_horizontal"
         android:textStyle="bold"
         android:textAlignment="center" />
@@ -27,7 +27,7 @@
         android:id="@+id/tvDetailValueLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
+        android:layout_weight="2"
         android:gravity="center_horizontal"
         android:textStyle="bold"
         android:textAlignment="center" />
@@ -36,7 +36,7 @@
         android:id="@+id/tvDetailUnitLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
+        android:layout_weight="2"
         android:gravity="center_horizontal"
         android:textStyle="bold"
         android:textAlignment="center" />
@@ -45,7 +45,7 @@
         android:id="@+id/tvDetailLastUpdateLocationDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="4"
         android:gravity="center_horizontal"
         android:textStyle="bold"
         android:textAlignment="center" />

@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/activity_vertical_margin">
 
         <TextView
             android:id="@+id/tvPositionHeaderLocations"
@@ -18,7 +19,8 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:gravity="center_horizontal"
-            android:text="@string/txtLocationPosition" />
+            android:text="@string/txtLocationPosition"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tvLocationCodeHeaderLocations"
@@ -27,7 +29,8 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:gravity="center_horizontal"
-            android:text="@string/txtLocationCode" />
+            android:text="@string/txtLocationCode"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tvLatitudeHeaderLocations"
@@ -36,7 +39,8 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:gravity="center_horizontal"
-            android:text="@string/txtLocationLatitude" />
+            android:text="@string/txtLocationLatitude"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tvLongitudeHeaderLocations"
@@ -45,7 +49,8 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:gravity="center_horizontal"
-            android:text="@string/txtLocationLongitude" />
+            android:text="@string/txtLocationLongitude"
+            android:textColor="@color/colorPrimary"/>
 
     </LinearLayout>
 
@@ -53,6 +58,7 @@
         android:id="@+id/lvLocationsList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"/>
+        android:layout_weight="7"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
 </LinearLayout>
