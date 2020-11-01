@@ -6,9 +6,9 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_miw_launcher"
+        android:icon="@mipmap/air_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_miw_launcher_round"
+        android:roundIcon="@mipmap/air_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
