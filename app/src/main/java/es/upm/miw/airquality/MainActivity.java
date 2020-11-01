@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -185,6 +186,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     public void onClick(View view) {
                         for (int i = 0; i < cityList.getResults().size(); i++) {
                             mMessagesDatabaseReference.push().setValue(cityList.getResults().get(i).getCity());
+                            Snackbar.make(
+                                    findViewById(android.R.id.content),
+                                    "City list uploaded to cloud",
+                                    Snackbar.LENGTH_LONG
+                            ).show();
                             Log.i(LOG_TAG, "Update to Cloud => city=" + cityList.getResults().get(i).getCity());
                         }
                     }

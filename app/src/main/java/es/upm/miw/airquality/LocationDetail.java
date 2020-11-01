@@ -1,6 +1,7 @@
 package es.upm.miw.airquality;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -59,7 +60,6 @@ public class LocationDetail extends AppCompatActivity {
         if (bundle != null) {
             int positionReceived = bundle.getInt(LocationsActivity.KEY_ID);
             String locationReceived = bundle.getString(LocationsActivity.KEY_LOCATION);
-
             getLocationDetail(locationReceived);
         }
     }
@@ -95,6 +95,12 @@ public class LocationDetail extends AppCompatActivity {
                             mMessagesDatabaseReference.push().setValue(detailsList.getResults().get(i).getCity());
                             mMessagesDatabaseReference.push().setValue(detailsList.getResults().get(i).getLocation());
                             mMessagesDatabaseReference.push().setValue(detailsList.getResults().get(i).getMeasurements());
+
+                            Snackbar.make(
+                                    findViewById(android.R.id.content),
+                                    "Details uploaded to cloud",
+                                    Snackbar.LENGTH_LONG
+                            ).show();
 
                             Log.i(LOG_TAG, "Update to Cloud => city=" + detailsList.getResults().get(i).getCity() +
                                     "Location => location=" + detailsList.getResults().get(i).getLocation());

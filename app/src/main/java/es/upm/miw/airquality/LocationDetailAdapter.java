@@ -53,7 +53,7 @@ public class LocationDetailAdapter extends ArrayAdapter {
             String unit = measurement.getUnit();
             String lastUpdate = measurement.getLastUpdated();
 
-            tvDetailPosition.setText(Integer.toString(position));
+            tvDetailPosition.setText(Integer.toString(position + 1));
             tvDetailParameter.setText(parameter.toUpperCase());
             tvDetailValue.setText(Double.toString(value));
             tvDetailUnit.setText(unit);
